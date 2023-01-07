@@ -1,4 +1,7 @@
-import { Token } from "../transpiller-scripting/frontend/lexer.ts"
+export interface Token {
+  value: string, // raw value
+  type: any, // temporary
+}
 
 const token = `
 test test
@@ -9,7 +12,7 @@ function tokenizer(srcCode: string) {
   console.log("source:", srcCode)
   const Tokens = new Array<Token>();
   const src = srcCode.split(" ")
-  return srcCode
+  return Tokens;
 }
 
 const TestInput = tokenizer(token);
