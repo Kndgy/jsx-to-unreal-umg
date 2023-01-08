@@ -2,29 +2,52 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 
+interface JsxScheme {
+  type: any
+}
 
-// const reg = /^a*b+[0-9][a-z]/
-// const tested = reg.test('b1aa')
 
-const JsonTagScheme = 
-{
-  type: "div",
-  props: [
-    {
-      //recursively if has children
-      children: [
-        "test from json"
-      ],
-      props: [
-        {
-          className:"Test ClassName"
-        }
-      ]
-    }
-  ],
+function JsxSchemeTemplate (type: string):JsxScheme[] {
+  //slightest idea of whats going to be recursive in the scheme template
+  const childrenScheme = {
+    props: [
+      {
+        //recursively if has children
+        children: [
+          {type}
+        ],
+        props: [
+          {
+            className:"Test ClassName"
+          }
+        ]
+      }
+    ],
+  }
+  const TemplatedScheme =
+  {
+    type: {type},
+    props: [
+      {
+        //recursively if has children
+        children: [
+          childrenScheme
+        ],
+        props: [
+          {
+            className:"Test ClassName"
+          }
+        ]
+      }
+    ],
+  }
+  const tokens = new Array<JsxScheme>()
+  tokens.push(TemplatedScheme)
+  return tokens;
 }
 
 function Test() {
+  console.log(JsxSchemeTemplate("its working??"))
   return(
     <div className='test' style={{backgroundColor:'black'}}>
       Test
@@ -33,6 +56,7 @@ function Test() {
 }
 
 const App = () => {
+  // console.log("test tempplate: ", JsxSchemeTemplate("test"))
   const testProps = {className: 'test'}
   const testTag = 
     <div>
@@ -42,11 +66,11 @@ const App = () => {
       </div>
     </div>
   
-  const TestScheme = React.createElement(JsonTagScheme.type, JsonTagScheme.props[0].props, JsonTagScheme.props[0].children)
+  // const TestScheme = React.createElement(JsonTagScheme.type, JsonTagScheme.props[0].props, JsonTagScheme.props[0].children)
 
-  console.log(TestScheme)
+  // console.log(TestScheme)
 
-  const test = React.createElement("div",{className:'test value', style: {color: "white"}} , testTag)
+  const test = React.createElement("div",{className:'test value', style: {color: "white"}} , "parent", React.createElement("div", null, "what"))
   console.log("create element nested: ",test)
   //nested node
   //props: 
@@ -64,12 +88,12 @@ const App = () => {
       //   ]
       // }
 
-  const test2 = React.createElement("div", null , "test")
-  console.log("create element second: ",test2)
-  //direct node
-  //props: [... children: "string"]
+  // const test2 = React.createElement("div", null , "test")
+  // console.log("create element second: ",test2)
+  // //direct node
+  // //props: [... children: "string"]
 
-  console.log("jsx element: ", Test().props)
+  // console.log("jsx element: ", Test().props)
 
   return(
     <div>
@@ -78,7 +102,7 @@ const App = () => {
       #
       {test}
       #
-      {TestScheme}
+      {/* {TestScheme} */}
       <Test/>
     </div>
   )
