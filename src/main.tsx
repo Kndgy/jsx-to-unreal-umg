@@ -2,35 +2,31 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 
+
+// const reg = /^a*b+[0-9][a-z]/
+// const tested = reg.test('b1aa')
+
 function Test() {
   return(
-    <div>
+    <div className='test' style={{backgroundColor:'black'}}>
       Test
     </div>
   )
 }
 
 const App = () => {
-  const test = React.createElement("div","children","huh")
-  const reg = /^a*b+[0-9][a-z]/
-  const tested = reg.test('b1aa')
-  if(" "){
-    console.log("a")
-  }
-  // console.log(test)
-  // console.log("jsx element: ", Test())
+  const testProps = {className: 'test'}
+  const test = React.createElement("div",{className:'test value', style: {color: "white"}} ,"huh")
+  console.log(test)
+  console.log("jsx element: ", Test().props)
 
 
 
   return(
     <div>
-      <div className='parent test1'>1
-        <div className='child test2'>a</div>
-        2
-        <div className='child test2'>b</div>
-        3
-      </div>
-  </div>
+      firs line
+      <Test/>
+    </div>
   )
 }
 
