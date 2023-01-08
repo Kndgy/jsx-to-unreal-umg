@@ -1,7 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema#",
   "title": "Render View Element",
-
   "definitions": {
     "render_react_element": {
       "type": "object",
