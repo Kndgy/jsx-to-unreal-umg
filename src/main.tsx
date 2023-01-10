@@ -25,7 +25,8 @@ function extract(element: any) {
     }
     if(TagJson[0].props.children instanceof Array){
       const Mapped = TagJson[0].props.children.map((el:any) => {return el})
-      console.log(Mapped) 
+      const typeMapped =Mapped.map((el:any)=> el.type)
+      console.log("parent props children mapped: ", Mapped, "\n", "Type Mapped: ", typeMapped )
     }else{
       console.log("not an array lol")
     }
@@ -67,7 +68,7 @@ const BasicText = () => {
 const App = () => {
   // const toString = extract(<>test</>)
   // console.log(JSON.stringify(extract(<>""</>)))
-  extract(<div>wtf<div>second wtf</div></div>)
+  extract(<div>children<div>children siblings</div></div>)
 
   const test = React.createElement("div",{className:'test value', style: {color: "white"}} , "parent", React.createElement("div", null, "what"))
   //nested node
