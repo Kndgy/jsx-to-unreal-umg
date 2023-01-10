@@ -81,8 +81,8 @@ const App = () => {
     const cry = []
     if(el instanceof Array){
       if(el.map((ele)=>ele.props.map((more:any)=>more.children))){
-        console.log("test: ", el.map((ele)=>ele.props.map((more:any)=>more.children.map((even:any)=>even.type))))
-        el.map((ele)=>ele.props.map((more:any)=>testRecursive(more.children))) 
+        console.log("test: ", el.map((ele)=>ele.type))
+        return el.map((ele)=>ele.props.map((more:any)=>testRecursive(more.children))) 
       }else{
         return "???"
       }
