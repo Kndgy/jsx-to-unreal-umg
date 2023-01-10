@@ -30,9 +30,15 @@ function extract(element: any) {
 const BasicText = () => {
   return(
     //use className to declare widget type, either custom component to support parent name or custom attributes
-    <div className='sizebox'>
-      <div className='sizebox'>
-        <div className='sizebox'>
+    <div className='sizebox1'>
+      <div className='sizebox2'>
+          test text
+        </div>
+      <div className='sizebox3'>
+      <div className='sizebox4'>
+          test text
+        </div>
+        <div className='sizebox5'>
           test text
         </div>
       </div>
@@ -41,56 +47,53 @@ const BasicText = () => {
 }
 const testJson = [
   {
-    type:"firtst div",
-    props: [
-      {
-        children: [
-          {
-            type:"second div",
-            props: [
+    type:"firts div",
+    props:{
+      children:[
+        {
+          type:"second div",
+          props:{
+            children:[
               {
-                children: [
-                  {
-                    type:"third div",
-                    props: [
-                      {
-                        children: [
-                          {
-                            type:"fourh div",
-                            props: [
-                              {
-                                children: "reached"
-                              }
-                            ]
-                          }
-                        ]
+                type:"third div",
+                props:{
+                  children:[
+                    {
+                      type:"fourth div",
+                      props:{
+                        children:"reached!"
                       }
-                    ]
-                  }
-                ]
+                    }
+                  ]
+                }
               }
             ]
           }
-        ]
-      }
-    ]
+        }
+      ]
+    }
   }
 ]
 const App = () => {
   function testRecursive(el:any){
-    const cry = []
     if(el instanceof Array){
-      if(el.map((ele)=>ele.props.map((more:any)=>more.children))){
-        console.log("test: ", el.map((ele)=>ele.type))
-        return el.map((ele)=>ele.props.map((more:any)=>testRecursive(more.children))) 
+      if(el.map((item:any)=>item.props.children)){
+        console.log("test: ", el.map((item:any)=>item.props.className)) // or ele.type
+        return el.map((item)=>testRecursive(item.props.children))
       }else{
         return "???"
       }
     }else{
       return "its not an array anymore lol"
     }
+    return 
   }
-  console.log(testRecursive(testJson))
+  const sheeth = []
+  sheeth.push(BasicText())
+  console.log(testRecursive(sheeth))
+  // console.log(testRecursive(testJson))
+  console.log(sheeth)
+  // console.log(testJson)
   const test = React.createElement("div",{className:'test value', style: {color: "white"}} , "parent", React.createElement("div", null, "what"))
   //nested node
   //props: 
