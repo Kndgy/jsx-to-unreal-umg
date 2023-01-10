@@ -1,77 +1,75 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
+// import { Serialize } from './serializer';
 
-interface JsxScheme {
-  type: any
+
+export interface Program {
+  type: string,
+  body: String[];
 }
 
+//attempt to extract the components children
+function extract(element: any) {
+  let TagJson = []
+  if(element === null || element == undefined){
+    return `element is either null or empty`
+  }
+  TagJson.push(element)
+  function TestMapped() {
+    
+  }
+  for(var i = 0; i<TagJson.length; i++){
+    if(TagJson[0].type == "div"){
+      // console.log("div")
+    }
+    if(TagJson[0].props.children instanceof Array){
+      const Mapped = TagJson[0].props.children.map((el:any) => {return el})
+      console.log(Mapped) 
+    }else{
+      console.log("not an array lol")
+    }
+    // console.log(TagJson[0].props.children)
+  }
 
-function JsxSchemeTemplate (type: string):JsxScheme[] {
-  //slightest idea of whats going to be recursive in the scheme template
-  const childrenScheme = {
-    props: [
-      {
-        //recursively if has children
-        children: [
-          {type}
-        ],
-        props: [
-          {
-            className:"Test ClassName"
-          }
-        ]
-      }
-    ],
-  }
-  const TemplatedScheme =
-  {
-    type: {type},
-    props: [
-      {
-        //recursively if has children
-        children: [
-          childrenScheme
-        ],
-        props: [
-          {
-            className:"Test ClassName"
-          }
-        ]
-      }
-    ],
-  }
-  const tokens = new Array<JsxScheme>()
-  tokens.push(TemplatedScheme)
-  return tokens;
+  // var type = ""
+  // var parent = []
+
+  //   const program: Program = {
+  //     type: "",
+  //     body: [] ,
+  //   }
+  //   const children = {
+  //     props: []
+  //   }
+  // program.type = "test"
+  // if(program.type != " "){
+  //   children.props.push("test")
+  //   program.body.push(children)
+  // }
+
+  // return 
 }
 
-function Test() {
-  console.log(JsxSchemeTemplate("its working??"))
+const BasicText = () => {
   return(
-    <div className='test' style={{backgroundColor:'black'}}>
-      Test
+    //use className to declare widget type, either custom component to support parent name or custom attributes
+    <div className='sizebox'>
+      <div className='sizebox'>
+        <div className='sizebox'>
+          test text
+        </div>
+      </div>
     </div>
   )
 }
 
 const App = () => {
-  // console.log("test tempplate: ", JsxSchemeTemplate("test"))
-  const testProps = {className: 'test'}
-  const testTag = 
-    <div>
-      parent element
-      <div>
-        children element
-      </div>
-    </div>
-  
-  // const TestScheme = React.createElement(JsonTagScheme.type, JsonTagScheme.props[0].props, JsonTagScheme.props[0].children)
-
-  // console.log(TestScheme)
+  // const toString = extract(<>test</>)
+  // console.log(JSON.stringify(extract(<>""</>)))
+  extract(<div>wtf<div>second wtf</div></div>)
 
   const test = React.createElement("div",{className:'test value', style: {color: "white"}} , "parent", React.createElement("div", null, "what"))
-  console.log("create element nested: ",test)
   //nested node
   //props: 
       // {
@@ -87,13 +85,11 @@ const App = () => {
       //     ]
       //   ]
       // }
-
-  // const test2 = React.createElement("div", null , "test")
-  // console.log("create element second: ",test2)
   // //direct node
   // //props: [... children: "string"]
 
-  // console.log("jsx element: ", Test().props)
+  // const TestScheme = React.createElement(JsonTagScheme.type, JsonTagScheme.props[0].props, JsonTagScheme.props[0].children)
+  // console.log(TestScheme)
 
   return(
     <div>
@@ -102,8 +98,9 @@ const App = () => {
       #
       {test}
       #
+      <br/>
+      {/* {extract(<>what</>)} */}
       {/* {TestScheme} */}
-      <Test/>
     </div>
   )
 }
