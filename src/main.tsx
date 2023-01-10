@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 // import { Serialize } from './serializer';
 
-
 export interface Program {
   type: string,
   body: String[];
@@ -12,44 +11,20 @@ export interface Program {
 //attempt to extract the components children
 function extract(element: any) {
   let TagJson = []
-  if(element === null || element == undefined){
-    return `element is either null or empty`
-  }
+  let final = []
   TagJson.push(element)
-  function TestMapped() {
-    
+
+  if(TagJson[0].props.children instanceof Array){
+    console.log("props children is isntance of array")
+    const Mapped = TagJson[0].props.children.map((el:any) => el.props)
+    final.push(Mapped)
+    // TagJson.push(Mapped.map((el:any) => {return el.props}))
+    // const pleaseWork = extract(final)
+    TagJson.push(final)
+  }else{
+    console.log("not an array lol")
   }
-  for(var i = 0; i<TagJson.length; i++){
-    if(TagJson[0].type == "div"){
-      // console.log("div")
-    }
-    if(TagJson[0].props.children instanceof Array){
-      const Mapped = TagJson[0].props.children.map((el:any) => {return el})
-      const typeMapped =Mapped.map((el:any)=> el.type)
-      console.log("parent props children mapped: ", Mapped, "\n", "Type Mapped: ", typeMapped )
-    }else{
-      console.log("not an array lol")
-    }
-    // console.log(TagJson[0].props.children)
-  }
-
-  // var type = ""
-  // var parent = []
-
-  //   const program: Program = {
-  //     type: "",
-  //     body: [] ,
-  //   }
-  //   const children = {
-  //     props: []
-  //   }
-  // program.type = "test"
-  // if(program.type != " "){
-  //   children.props.push("test")
-  //   program.body.push(children)
-  // }
-
-  // return 
+  return TagJson;
 }
 
 const BasicText = () => {
@@ -64,12 +39,58 @@ const BasicText = () => {
     </div>
   )
 }
-
+const testJson = [
+  {
+    type:"firtst div",
+    props: [
+      {
+        children: [
+          {
+            type:"second div",
+            props: [
+              {
+                children: [
+                  {
+                    type:"third div",
+                    props: [
+                      {
+                        children: [
+                          {
+                            type:"fourh div",
+                            props: [
+                              {
+                                children: "reached"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
 const App = () => {
-  // const toString = extract(<>test</>)
-  // console.log(JSON.stringify(extract(<>""</>)))
-  extract(<div>children<div>children siblings</div></div>)
-
+  function testRecursive(el:any){
+    const cry = []
+    if(el instanceof Array){
+      if(el.map((ele)=>ele.props.map((more:any)=>more.children))){
+        console.log("test: ", el.map((ele)=>ele.props.map((more:any)=>more.children.map((even:any)=>even.type))))
+        el.map((ele)=>ele.props.map((more:any)=>testRecursive(more.children))) 
+      }else{
+        return "???"
+      }
+    }else{
+      return "its not an array anymore lol"
+    }
+  }
+  console.log(testRecursive(testJson))
   const test = React.createElement("div",{className:'test value', style: {color: "white"}} , "parent", React.createElement("div", null, "what"))
   //nested node
   //props: 
