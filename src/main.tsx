@@ -76,23 +76,25 @@ const testJson = [
 ]
 const App = () => {
   function testRecursive(el:any){
+    let element = new Array
     if(el instanceof Array){
       if(el.map((item:any)=>item.props.children)){
         console.log("test: ", el.map((item:any)=>item.props.className)) // or ele.type
-        return el.map((item)=>testRecursive(item.props.children))
+        element.push(el.map((item)=>testRecursive(item.props.children)))
+        //one way is to remove return and just do stuff here, and possible use state or store the returned stuff to use on another components
       }else{
         return "???"
       }
     }else{
       return "its not an array anymore lol"
-    }
-    return 
+    } 
+    return element;
   }
   const sheeth = []
   sheeth.push(BasicText())
   console.log(testRecursive(sheeth))
   // console.log(testRecursive(testJson))
-  console.log(sheeth)
+  // console.log(sheeth)
   // console.log(testJson)
   const test = React.createElement("div",{className:'test value', style: {color: "white"}} , "parent", React.createElement("div", null, "what"))
   //nested node
