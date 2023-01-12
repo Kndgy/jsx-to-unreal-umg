@@ -1,0 +1,63 @@
+{
+ "UMGScheme": {
+  "FileName": "string",
+  "WidgetListParent": [
+    {
+      "type": "SizeBox",
+      "ObjClass": "/Script/UMG.SizeBox",
+      "WidgetName": "SizeBox_Test",
+      "Slots":[
+        {
+          "objClass": "/Script/UMG.SizeBoxSlot",
+          "name": "sizeBoxSlot_0",
+          "content": {
+            "TextBlock": "TextBlock_Test"
+          }
+        }
+      ],
+      "BoolExpandedInDesigner":true,
+      "SlotPropertyNames":
+      {
+        "LayoutData":{
+          "offsets":{
+            "Left":0,
+            "Top":0,
+            "Right":100,
+            "Bottom":30
+          },
+          "Anchors":{
+            "Minimum":{
+              "X":0,
+              "Y":0
+            },
+            "Maximum":{
+              "X":0,
+              "Y":0
+            }
+          },
+          "Alignment":{
+            "x":0,
+            "y":0
+          }
+        },
+        "boolAutoSize":false,
+        "Zorder": 0
+      },
+      "child":{
+        "name":"TextBlock_JS",
+        "Text":{
+          "NSLoctext":[
+            [
+              "serials"
+            ],
+            "integer but not in array",
+            {
+              "Type":"TextBlock_Test"
+            }
+          ]
+        }
+      }
+    }
+  ]
+ }  
+}

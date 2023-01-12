@@ -8,25 +8,6 @@ export interface Program {
   body: String[];
 }
 
-//attempt to extract the components children
-function extract(element: any) {
-  let TagJson = []
-  let final = []
-  TagJson.push(element)
-
-  if(TagJson[0].props.children instanceof Array){
-    console.log("props children is isntance of array")
-    const Mapped = TagJson[0].props.children.map((el:any) => el.props)
-    final.push(Mapped)
-    // TagJson.push(Mapped.map((el:any) => {return el.props}))
-    // const pleaseWork = extract(final)
-    TagJson.push(final)
-  }else{
-    console.log("not an array lol")
-  }
-  return TagJson;
-}
-
 const BasicText = () => {
   return(
     //use className to declare widget type, either custom component to support parent name or custom attributes
@@ -79,23 +60,20 @@ const App = () => {
     let element = new Array
     if(el instanceof Array){
       if(el.map((item:any)=>item.props.children)){
-        console.log("test: ", el.map((item:any)=>item.props.className)) // or ele.type
-        element.push(el.map((item)=>testRecursive(item.props.children)))
+        console.log("test: ", el.map((item:any)=>item.props.className )) // or ele.type
+        element.push(el.map((items)=>testRecursive(items.props.children)))
         //one way is to remove return and just do stuff here, and possible use state or store the returned stuff to use on another components
       }else{
-        return "???"
+        return "???" // need to return stuff aswell
       }
     }else{
-      return "its not an array anymore lol"
+      return "its not an array anymore lol" // need to return stuff lol
     } 
     return element;
   }
   const sheeth = []
   sheeth.push(BasicText())
   console.log(testRecursive(sheeth))
-  // console.log(testRecursive(testJson))
-  // console.log(sheeth)
-  // console.log(testJson)
   const test = React.createElement("div",{className:'test value', style: {color: "white"}} , "parent", React.createElement("div", null, "what"))
   //nested node
   //props: 
@@ -126,8 +104,6 @@ const App = () => {
       {test}
       #
       <br/>
-      {/* {extract(<>what</>)} */}
-      {/* {TestScheme} */}
     </div>
   )
 }
