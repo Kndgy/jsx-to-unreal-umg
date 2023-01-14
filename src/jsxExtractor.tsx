@@ -1,6 +1,7 @@
 import React from "react";
-
+var index = 0;
 export function Extract(el:any){
+  index++;
   //temp var
   let pairClass = "" //WidgetSlotPair_1 //engine generated
   let slotClassName = "" //engine generated
@@ -23,15 +24,25 @@ export function Extract(el:any){
   //end slot properties
 
   var widgetType: any
+  var filteredType: any
   let element = new Array
   if(el instanceof Array){
     if(el.map((item:any)=>item.props.children)){
       widgetType = el.map((item:any)=>item.props.className)
-      var seconType = widgetType.filter(function(e:any){return e !== undefined})
-      widgetClass = seconType
-      // console.log("test: ", el.map((item:any)=>item.props.className)) // or ele.type or children to return desired elements // this will return classname accordingly to data structure, siblings will shown sides while children is nested or in different line
+      element = widgetType.filter(function(e:any){return e !== undefined})
+      let newElement = `${element}`
+      if(newElement == 'sizebox'){
+        console.log("this is sizebox, do something here here")
+      }
+      if(newElement == 'textblock'){
+        console.log("this is textblock, nested")
+      }
+      console.log(newElement, index)
+      /*
+        this will return element accordingly to data structure, 
+        siblings will shown sides while children is nested or in different line
+      */
       element.push(el.map((items)=>Extract(items.props.children)))
-      console.log(seconType)
       //one way is to remove return and just do stuff here, and possible use state or store the returned stuff to use on another components
     }else{
       return "no props or children available" // need to return stuff aswell
@@ -40,50 +51,17 @@ export function Extract(el:any){
     return element // need to return stuff lol
   } 
   
-  const testTemplateString =`
+  var testTemplateString = `*${element}`
 
-  Begin Object Class=/Script/UMG.SizeBox 
-  Name=" ${widgetClass} "
+  //first method, mess around string and regex to get the elements 
+  var newTemplateString = []
+  newTemplateString.push(testTemplateString)
+  var newnew = testTemplateString.split(",").join("")
+  // console.log(newnew)
+  if(newnew == 'textblock'){
+    console.log("true")
+  }
 
-    Begin Object Class=/Script/UMG.SizeBoxSlot 
-    Name="${slotClassName}_0"
-    End object
-
-    Begin Object Name="SizeBoxSlot_0" 
-      Parent=SizeBox'"SizeBox_JS"'
-      Content=TextBlock'"TextBlock_JS"'
-    End object
-
-    Slots(0)=SizeBoxSlot'"SizeBoxSlot_0"'
-    bExpandedInDesigner=True
-    DisplayLabel="SizeBox_JS"
-    
-  End Object
-
-  Begin Object Class=/Script/UMGEditor.WidgetSlotPair 
-  Name="${pairClass}_0"
-
-    WidgetName="SizeBox_JS"
-    SlotPropertyNames (0)="LayoutData" 
-    SlotPropertyNames (1)="bAutosize"
-    slotPropertyNames (2)="Zorder"
-    slotPropertyValues (0)="(
-      offsets=(Left=${offsets.left}, Top=${offsets.top}, Right=${offsets.right}, Bottom==${offsets.bottom}),
-      Anchors=(Minimum=(X=${anchors.min.x}, Y=${anchors.min.y}), Maximum (X=${anchors.max.x}, Y=${anchors.max.y})), 
-      Alignment=(X= ${alignment.x} , Y=${alignment.y})
-    )"
-    SlotPropertyValues(1)="${AutoSize}"
-    Slot PropertyValues(2)="${ZOrder}"
-
-  End Object
-
-  Begin Object Class-/Script/UMG.TextBlock 
-  Name="${widgetClass}"
-
-    Text=NSLOCTEXT("[7111009045A9112BCD784783480A37A2]", "6442577D4B8A7F0E37DA728885BC22A4", "Text Block content goes here")
-    DisplayLabel="TextBlock_JS"
-
-  End Object
-  `
-  return testTemplateString;
+  // console.log(newTemplateString)
+  return newTemplateString;
 }

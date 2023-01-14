@@ -19,7 +19,8 @@ const App = () => {
 
   var sheeth = []
   sheeth.push(BasicText())
-  console.log(Extract(sheeth))
+  // Extract(sheeth)
+  // console.log(Extract(sheeth))
   // console.log(sheeth)
 
   // console.log(JSON.stringify(umgScheme.UMGScheme))
@@ -31,7 +32,6 @@ const App = () => {
     })
     console.log(childs)
   */
-
   // const testJson = [
   //   {
   //     type:"firts div",
@@ -72,6 +72,7 @@ const App = () => {
       #
       {test}
       #
+      {Extract(sheeth)}
       <br/>
     </div>
   )
