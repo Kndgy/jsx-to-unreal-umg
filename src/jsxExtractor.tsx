@@ -25,12 +25,13 @@ export function Extract(el:any){
 
   var widgetType: any
   var filteredType: any
+  let newElement:any
   let element = new Array
   if(el instanceof Array){
     if(el.map((item:any)=>item.props.children)){
       widgetType = el.map((item:any)=>item.props.className)
       element = widgetType.filter(function(e:any){return e !== undefined})
-      let newElement = `${element}`
+      newElement = element
       if(newElement == 'sizebox'){
         console.log("this is sizebox, do something here here")
       }
@@ -63,5 +64,5 @@ export function Extract(el:any){
   }
 
   // console.log(newTemplateString)
-  return newTemplateString;
+  return newElement;
 }
