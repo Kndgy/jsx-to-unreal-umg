@@ -2,13 +2,15 @@ import React, { ReactNode } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { Extract } from './jsxExtractor';
+import test from "./testClass"
+import TestClass from './testClass';
 
 const BasicText = () => {
   return(
     //use className to declare widget type, either custom component to support parent name or custom attributes
     <div className='sizebox'>
       <div className='textblock'>
-          test text
+        test text
       </div>
       <></>
     </div>
@@ -32,35 +34,6 @@ const App = () => {
     })
     console.log(childs)
   */
-  // const testJson = [
-  //   {
-  //     type:"firts div",
-  //     props:{
-  //       children:[
-  //         {
-  //           type:"second div",
-  //           props:{
-  //             children:[
-  //               {
-  //                 type:"third div",
-  //                 props:{
-  //                   children:[
-  //                     {
-  //                       type:"fourth div",
-  //                       props:{
-  //                         children:"reached!"
-  //                       }
-  //                     }
-  //                   ]
-  //                 }
-  //               }
-  //             ]
-  //           }
-  //         }
-  //       ]
-  //     }
-  //   }
-  // ]
   const test = React.createElement("div",{className:'test value', style: {color: "white"}} , "parent", React.createElement("div", null, "what"))
 
   return(
@@ -69,8 +42,11 @@ const App = () => {
       <br/>
       #
       {test}
-      #
-      {Extract(sheeth)}
+      <TestClass/>
+      {JSON.stringify(Extract(sheeth))}
+      {/* {Extract(sheeth)}
+        to return plain text
+      */}
       <br/>
     </div>
   )
