@@ -43,10 +43,13 @@ const App = () => {
       #
       {test}
       <TestClass/>
+      <br/>
+      <p>stringify</p>
       {JSON.stringify(Extract(sheeth))}
-      {/* {Extract(sheeth)}
-        to return plain text
-      */}
+      <br/>
+      <br/>
+      <p>not stringify</p>
+      {Extract(sheeth)}
       <br/>
     </div>
   )

@@ -40,19 +40,6 @@ export function Extract(el:any){
     if(el.map((item:any)=>item.props.children)){
       widgetType = el.map((item:any)=>item.props.className)
       element = widgetType.filter(function(e:any){return e !== undefined})
-      element = element
-      if(element == 'sizebox'){
-        // console.log("this is sizebox, do something here here")
-        single.push("sizebox")
-        // bodyJSXS.push({parent:"sizebox", children:element})
-        newsingle = single.concat("first lol")
-      }
-      if(element == 'textblock'){
-        // bodyJSXS.push({parent:"sizebox", children:element})
-        // console.log("this is textblock, nested")
-        single.push("textblock")
-        newsingle = single.concat("lol")
-      }
       console.log(element, index)
       element.push(el.map((items)=>Extract(items.props.children)))
       //one way is to remove return and just do stuff here, and possible use state or store the returned stuff to use on another components
@@ -82,9 +69,11 @@ export function Extract(el:any){
   // console.log( firstText )
   // console.log(result)
   // console.log(bodyJSXS)
-  console.log(JSON.stringify(element))
+  // console.log(JSON.stringify(element))
+  console.log(element)
   //might want to write a recursive parser
 
   // console.log(element)
-  return JSON.stringify(element);
+  // return JSON.stringify(element);
+  return element
 }
