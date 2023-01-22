@@ -24,15 +24,12 @@ const App = () => {
 
   var sheeth = []
   sheeth.push(BasicText())
-  // Extract(sheeth)
   console.log(JSON.stringify(restructureJSON(sheeth)))
-  const test = React.createElement("div",{className:'test value', style: {color: "white"}} , "parent", React.createElement("div", null, "what"))
+  console.log(restructureJSON(sheeth))
+  const test = React.createElement("div",{className:'test value', style: {color: "red"}} , "parent", React.createElement("div", null, "sinlings"))
 
   return(
     <div>
-      firs line
-      <br/>
-      #
       {test}
       <TestClass/>
       <br/>
