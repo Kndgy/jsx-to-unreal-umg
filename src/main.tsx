@@ -2,22 +2,20 @@ import React, { ReactNode } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import { Extract } from './jsxExtractor';
-import test from "./testClass"
 import TestClass from './testClass';
+import { restructureJSON } from './restructureJSX';
 
 const BasicText = () => {
   return(
     //use className to declare widget type, either custom component to support parent name or custom attributes
-    <div className='parents'>
-      test child
-    <div className='sizebox-parent'>
+    <div className='sizebox'>
+      test content
       <div className='textblock'>
-        eh
+        textblock content
         <div className='textblock2'>
-          last
-        </div>
+        textblock content2
       </div>
-    </div>
+      </div>
     </div>
   )
 }
@@ -26,7 +24,8 @@ const App = () => {
 
   var sheeth = []
   sheeth.push(BasicText())
-  Extract(sheeth)
+  // Extract(sheeth)
+  console.log(JSON.stringify(restructureJSON(sheeth)))
   const test = React.createElement("div",{className:'test value', style: {color: "white"}} , "parent", React.createElement("div", null, "what"))
 
   return(
@@ -37,7 +36,7 @@ const App = () => {
       {test}
       <TestClass/>
       <br/>
-      {/* {JSON.stringify(Extract(sheeth))} */}
+      {JSON.stringify(Extract(sheeth))}
       <br/>
       <br/>
       {/* {Extract(sheeth)} */}
