@@ -1,5 +1,6 @@
 {
   "deno.enablePaths": [
     "interpreter"
-  ]
+  ],
+  "editor.tabSize": 4
 }
