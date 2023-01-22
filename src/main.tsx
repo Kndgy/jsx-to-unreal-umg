@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import { Extract } from './jsxExtractor';
+import { Extract } from './parser/jsxExtractor';
 import TestClass from './testClass';
-import { restructureJSON } from './restructureJSX';
+import { restructureJSON } from './parser/restructureJSX';
 
 const BasicText = () => {
   return(
@@ -13,6 +13,9 @@ const BasicText = () => {
       <div className='textblock'>
         textblock content
         <div className='textblock2'>
+        textblock content2
+      </div>
+      <div className='textblock2'>
         textblock content2
       </div>
       </div>
