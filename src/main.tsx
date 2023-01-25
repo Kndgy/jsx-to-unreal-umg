@@ -10,27 +10,32 @@ const BasicText = () => {
   return(
     //use className to declare widget type, either custom component to support parent name or custom attributes
     <div style={{color:"black", backgroundColor:"white"}} className='sizebox'>
-      test content
-      <div className='textblock'>
-        textblock content
-        <div className='textblock2'>
-        textblock content2
-      </div>
-      <div className='textblock3'>
-        textblock content2
-        {index}
-      </div>
-      </div>
+        <div className='textblock'>
+            content goes here
+        </div>
     </div>
   )
+}
+interface testComptInterface {
+    text?: any;
+}
+export const TestComp = ({text="empty"}:testComptInterface) =>{
+    return (
+        <div>
+            test
+            <br/>
+            {text}
+        </div>
+    )
 }
 
 const App = () => {
 
   var sheeth = []
-  sheeth.push(BasicText())
-  // console.log(JSON.stringify(restructureJSON(sheeth)))
-  console.log(restructureJSON(sheeth))
+  sheeth.push(<TestComp/>)
+//   console.log(JSON.stringify(restructureJSON(sheeth)))
+console.log(sheeth)
+//   console.log(restructureJSON(sheeth))
   const test = React.createElement("div",{className:'test value', style: {color: "red"}} , "parent", React.createElement("div", null, "sinlings"))
 
   return(
@@ -38,9 +43,10 @@ const App = () => {
       {test}
       <TestClass/>
       <br/>
-      {JSON.stringify(Extract(sheeth))}
+      {/* {JSON.stringify(Extract(sheeth))} */}
       <br/>
       <br/>
+      <TestComp/>
       {/* {Extract(sheeth)} */}
       <br/>
     </div>
