@@ -18,11 +18,12 @@ const BasicText = () => {
 }
 interface testComptInterface {
     text?: any;
+    another?: any;
 }
-export const TestComp = ({text="empty"}:testComptInterface) =>{
+export const TestComp = ({text="empty", another="another"}:testComptInterface) =>{
     return (
-        <div>
-            test
+        <div className='test component'>
+            {another}
             <br/>
             {text}
         </div>
@@ -32,9 +33,11 @@ export const TestComp = ({text="empty"}:testComptInterface) =>{
 const App = () => {
 
   var sheeth = []
-  sheeth.push(<TestComp/>)
-//   console.log(JSON.stringify(restructureJSON(sheeth)))
+  sheeth.push(TestComp({text:"yeah"}))
+  sheeth.push(<TestComp text={"lol"} another={"another test"}/>)
 console.log(sheeth)
+
+//   console.log(JSON.stringify(restructureJSON(sheeth)))
 //   console.log(restructureJSON(sheeth))
   const test = React.createElement("div",{className:'test value', style: {color: "red"}} , "parent", React.createElement("div", null, "sinlings"))
 
