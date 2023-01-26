@@ -1,7 +1,7 @@
 import React from "react";
 var index = 0;
 
-export function Extract(el:any){
+export function Extract(el:React.ReactNode){
     
     function extractChildrenPropsAndClassName(obj: any, parent: any = {}): object {
         if (Array.isArray(obj)) {
