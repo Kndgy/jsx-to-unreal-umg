@@ -5,7 +5,7 @@ interface sizeBoxProps {
     children?: React.ReactNode;
 }
 
-export const sizeBox = ({name, children}:sizeBoxProps) => {
+export const SizeBox = ({name, children}:sizeBoxProps) => {
     return(
         <div className="sizeBox">
             {children}
