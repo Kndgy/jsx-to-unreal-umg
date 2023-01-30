@@ -1,9 +1,5 @@
 import React from "react";
-
-interface textBlockInterface {
-    name?: string;
-    content?: string,
-}
+import { textBlockInterface } from "./componentsInterface";
 
 export const TextBlock = ({content}:textBlockInterface) => {
     return(

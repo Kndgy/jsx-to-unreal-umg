@@ -35,7 +35,7 @@ const App = () => {
   var sheeth = []
   sheeth.push(TestComp({text:"yeah"}))
   sheeth.push(<TestComp text={"lol"} another={"another test"}/>)
-console.log(sheeth)
+  console.log(sheeth)
 
 //   console.log(JSON.stringify(restructureJSON(sheeth)))
 //   console.log(restructureJSON(sheeth))
