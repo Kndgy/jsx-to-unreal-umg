@@ -33,12 +33,14 @@ export const TestComp = ({text="empty", another="another"}:testComptInterface) =
 const App = () => {
 
   var sheeth = []
-  sheeth.push(TestComp({text:"yeah"}))
-  sheeth.push(<TestComp text={"lol"} another={"another test"}/>)
-  console.log(sheeth)
+  // sheeth.push(TestComp({text:"yeah"}))
+  // sheeth.push(<TestComp text={"lol"} another={"another test"}/>)
+  // console.log(sheeth)
 
 //   console.log(JSON.stringify(restructureJSON(sheeth)))
 //   console.log(restructureJSON(sheeth))
+  sheeth.push(BasicText())
+  Extract(sheeth)
   const test = React.createElement("div",{className:'test value', style: {color: "red"}} , "parent", React.createElement("div", null, "sinlings"))
 
   return(
@@ -50,7 +52,7 @@ const App = () => {
       <br/>
       <br/>
       <TestComp/>
-      {/* {Extract(sheeth)} */}
+      {/* {} */}
       <br/>
     </div>
   )
