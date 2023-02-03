@@ -16,19 +16,6 @@ const BasicText = () => {
     </div>
   )
 }
-interface testComptInterface {
-    text?: any;
-    another?: any;
-}
-export const TestComp = ({text="empty", another="another"}:testComptInterface) =>{
-    return (
-        <div className='test component'>
-            {another}
-            <br/>
-            {text}
-        </div>
-    )
-}
 
 const App = () => {
 
@@ -38,8 +25,8 @@ const App = () => {
   // console.log(sheeth)
 
 //   console.log(JSON.stringify(restructureJSON(sheeth)))
-//   console.log(restructureJSON(sheeth))
   sheeth.push(BasicText())
+  console.log(restructureJSON(sheeth))
   Extract(sheeth)
   const test = React.createElement("div",{className:'test value', style: {color: "red"}} , "parent", React.createElement("div", null, "sinlings"))
 
@@ -51,7 +38,6 @@ const App = () => {
       {/* {JSON.stringify(Extract(sheeth))} */}
       <br/>
       <br/>
-      <TestComp/>
       {/* {} */}
       <br/>
     </div>
