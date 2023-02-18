@@ -1,15 +1,12 @@
-import React from "react";
-var index = 0;
-
-export function Extract(el:React.ReactNode){
+export function Extract(el:JSX.Element){
     
-    function extractChildrenPropsAndClassName(obj: any, parent: any = {}): object {
+    function RestructureJSXtoJSON(obj: any, parent: any = {}): object {
         if (Array.isArray(obj)) {
-            obj.forEach(item => extractChildrenPropsAndClassName(item, parent));
+            obj.forEach(item => RestructureJSXtoJSON(item, parent));
         } else {
             if (obj.hasOwnProperty("props")) {
             if (obj.props.hasOwnProperty("className")) {
-                if (!parent.hasOwnProperty(obj.props.className)) {
+                if (!parent.obj?.props.className) {
                 parent[obj.props.className] = {};
                 }
                 parent = parent[obj.props.className];
@@ -19,11 +16,11 @@ export function Extract(el:React.ReactNode){
                 obj.props.children.forEach((child: any) => {
                     if (Array.isArray(child)) {
                     child.forEach((c: any) => {
-                        extractChildrenPropsAndClassName(c, parent);
+                        RestructureJSXtoJSON(c, parent);
                     });
                     } else {
                     if(child.hasOwnProperty("props")) {
-                        extractChildrenPropsAndClassName(child, parent);
+                        RestructureJSXtoJSON(child, parent);
                     } else {
                         if(!parent.hasOwnProperty("value")) {
                         parent["value"] = [child];
@@ -37,7 +34,7 @@ export function Extract(el:React.ReactNode){
                 parent["value"] = obj.props.children;
                 } else {
                 if (obj.props.children.hasOwnProperty("props")) {
-                    extractChildrenPropsAndClassName(obj.props.children, parent);
+                    RestructureJSXtoJSON(obj.props.children, parent);
                 } else {
                     parent["value"] = obj.props.children;
                 }
@@ -47,8 +44,6 @@ export function Extract(el:React.ReactNode){
         }
         return parent;
     }
-         
-      
-  console.log(extractChildrenPropsAndClassName(el))
+    return RestructureJSXtoJSON(el)
 
 }
