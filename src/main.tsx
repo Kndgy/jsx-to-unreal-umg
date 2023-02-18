@@ -1,16 +1,17 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useRef } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import { Extract } from './parser/jsxExtractor';
+// import { Extract } from './parser/jsxExtractor';
 import TestClass from './testClass';
-import { restructureJSON } from './parser/restructureJSX';
+// import { CreateJsx, CreateJSON } from 'jsx-transform-json';
+import { convertNodeToJSON } from './parser/convertNodeToJSON';
+import {createReactElement} from './parser/createJSX';
 
 const BasicText = () => {
-  var index = 1
   return(
     //use className to declare widget type, either custom component to support parent name or custom attributes
-    <div style={{color:"black", backgroundColor:"white"}} className='sizebox'>
-        <div className='textblock'>
+    <div key={1} ref={useRef().current} style={{color:"black", backgroundColor:"white"}} className='sizebox'>
+        <div key={2} className='textblock'>
             content goes here
         </div>
     </div>
@@ -19,27 +20,18 @@ const BasicText = () => {
 
 const App = () => {
 
-  var sheeth = []
-  // sheeth.push(TestComp({text:"yeah"}))
-  // sheeth.push(<TestComp text={"lol"} another={"another test"}/>)
-  // console.log(sheeth)
+  let sheeth = []
 
-//   console.log(JSON.stringify(restructureJSON(sheeth)))
   sheeth.push(BasicText())
-  console.log(restructureJSON(sheeth))
-  Extract(sheeth)
-  const test = React.createElement("div",{className:'test value', style: {color: "red"}} , "parent", React.createElement("div", null, "sinlings"))
+  console.log(JSON.stringify(convertNodeToJSON(BasicText())))
+  console.log(createReactElement(convertNodeToJSON(BasicText())))
+  const test = React.createElement("div",{className:'test value', style: {color: "red"}} , "parent", React.createElement("div", null, "siblings"))
 
   return(
     <div>
-      {test}
-      <TestClass/>
-      <br/>
-      {/* {JSON.stringify(Extract(sheeth))} */}
-      <br/>
-      <br/>
-      {/* {} */}
-      <br/>
+      {JSON.stringify(convertNodeToJSON(BasicText()))}
+      <p/>
+      {createReactElement(convertNodeToJSON(BasicText()))}
     </div>
   )
 }
