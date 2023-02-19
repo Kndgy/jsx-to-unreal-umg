@@ -6,6 +6,7 @@ import TestClass from './testClass';
 // import { CreateJsx, CreateJSON } from 'jsx-transform-json';
 import { convertNodeToJSON } from './parser/convertNodeToJSON';
 import {createReactElement} from './parser/createJSX';
+import { Editor } from './modules/editor';
 
 const BasicText = () => {
   return(
@@ -25,13 +26,18 @@ const App = () => {
   sheeth.push(BasicText())
   console.log(JSON.stringify(convertNodeToJSON(BasicText())))
   console.log(createReactElement(convertNodeToJSON(BasicText())))
-  const test = React.createElement("div",{className:'test value', style: {color: "red"}} , "parent", React.createElement("div", null, "siblings"))
 
   return(
     <div>
-      {JSON.stringify(convertNodeToJSON(BasicText()))}
+      {/* {JSON.stringify(convertNodeToJSON(<div key={1} ref={useRef().current} style={{color:"black", backgroundColor:"white"}} className='sizebox'>
+        <div key={2} className='textblock'>
+            content goes here
+        </div>
+    </div>))}
       <p/>
-      {createReactElement(convertNodeToJSON(BasicText()))}
+      {createReactElement(convertNodeToJSON(BasicText()))} */}
+
+      <Editor/>
     </div>
   )
 }
