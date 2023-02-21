@@ -28,7 +28,7 @@ const App = () => {
   console.log(createReactElement(convertNodeToJSON(BasicText())))
 
   return(
-    <div>
+    <div className='main'>
       {/* {JSON.stringify(convertNodeToJSON(<div key={1} ref={useRef().current} style={{color:"black", backgroundColor:"white"}} className='sizebox'>
         <div key={2} className='textblock'>
             content goes here

@@ -3,10 +3,10 @@ import styles from './editor.module.css'
 export const Editor = () => {
     return(
         <div className={styles.editor}>
-            <div>
+            <div className={styles.sideBar}>
                 side bar
             </div> 
-            <div>
+            <div className={styles.content}>
                 editor
             </div>
         </div>
