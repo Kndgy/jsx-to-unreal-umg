@@ -4,7 +4,6 @@ export const Editor = () => {
     return(
         <div className={styles.editor}>
             <div className={styles.sideBar}>
-                side bar
                 <div className={styles.pickerTab}>
                     top
                 </div>

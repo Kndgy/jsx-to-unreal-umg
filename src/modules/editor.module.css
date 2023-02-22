@@ -10,6 +10,19 @@
 .sideBar{
     width: 25%;
     background-color:navajowhite;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.pickerTab{
+    background-color: aliceblue;
+    height: 100%;
+}
+
+.bottomTab{
+    background-color: aquamarine;
+    height: 100%;
 }
 
 .content{
