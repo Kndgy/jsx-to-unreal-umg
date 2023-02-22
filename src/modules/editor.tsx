@@ -5,6 +5,12 @@ export const Editor = () => {
         <div className={styles.editor}>
             <div className={styles.sideBar}>
                 side bar
+                <div className={styles.pickerTab}>
+                    top
+                </div>
+                <div className={styles.bottomTab}>
+                    bottom
+                </div>
             </div> 
             <div className={styles.content}>
                 editor
