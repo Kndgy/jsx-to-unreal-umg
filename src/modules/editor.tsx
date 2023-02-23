@@ -5,10 +5,10 @@ export const Editor = () => {
         <div className={styles.editor}>
             <div className={styles.sideBar}>
                 <div className={styles.pickerTab}>
-                    top
+                    placeholder
                 </div>
                 <div className={styles.bottomTab}>
-                    bottom
+                    placeholder
                 </div>
             </div> 
             <div className={styles.content}>
