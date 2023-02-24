@@ -9,7 +9,7 @@ interface NodeJson {
   };
 }
 
-export function convertNodeToJSON(obj: NodeJson | Array<NodeJson>): NodeJson {
+export function convertNodeToJSON(obj: NodeJson | Array<NodeJson> | null): NodeJson {
   let newNode: NodeJson = {
     type: '',
     props: {
@@ -78,6 +78,10 @@ export function convertNodeToJSON(obj: NodeJson | Array<NodeJson>): NodeJson {
       }
     }
   }
-  recurse(obj, newNode);
+  if(obj == null) {
+    console.log("is a null")
+  }else{
+    recurse(obj, newNode);
+  }
   return newNode;
 }

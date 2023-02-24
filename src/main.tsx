@@ -19,6 +19,8 @@ const BasicText = () => {
   )
 }
 
+
+
 const App = () => {
 
   let sheeth = []
@@ -29,14 +31,6 @@ const App = () => {
 
   return(
     <div className='main'>
-      {/* {JSON.stringify(convertNodeToJSON(<div key={1} ref={useRef().current} style={{color:"black", backgroundColor:"white"}} className='sizebox'>
-        <div key={2} className='textblock'>
-            content goes here
-        </div>
-    </div>))}
-      <p/>
-      {createReactElement(convertNodeToJSON(BasicText()))} */}
-
       <Editor/>
     </div>
   )
