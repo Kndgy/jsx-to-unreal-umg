@@ -12,7 +12,12 @@ export const Editor = () => {
                 </div>
             </div> 
             <div className={styles.content}>
-                editor
+                <div className={styles.inputContainer}>
+                    <textarea className={styles.input}/>
+                </div>
+                <div className={styles.result}>
+                    result
+                </div>
             </div>
         </div>
     )
