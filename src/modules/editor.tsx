@@ -5,6 +5,7 @@ import { convertNodeToJSON } from '../parser/convertNodeToJSON'
 
 export const Editor = () => {
 
+    //handle separate string and html element
     const [text, setText] = useState({
         text:"<div>this is text</div>",
         element:<></>
@@ -17,6 +18,7 @@ export const Editor = () => {
     console.log(text.element)
     console.log(<div>test</div>)
     
+    //dynamically extract tag and content in between
     function trimStringTags(str: string): { tagName: string, content: string }[] {
         const pattern = /<(\w+)>(.*?)<\/\1>/g;
         const matches = [];
@@ -31,11 +33,18 @@ export const Editor = () => {
     console.log(trimmed);
     // Output: [ { tagName: 'example', content: 'text' }, { tagName: 'multiple', content: 'multiple' } ]
     
-    //handle this thing
-    // const stringToJsxElement = (tag:string, htmlString: string): JSX.Element => {
-    //     return <{tag}>{htmlString}</tag>;
-    // }
-    // console.log(stringToJsxElement(trimmed.toString()))
+    //html rendered finished, check above comments
+    interface Props {
+        htmlString: string;
+        tag: string;
+      }
+      function RenderHtmlTag({ htmlString, tag }: Props) {
+        const Tag = tag as keyof JSX.IntrinsicElements;
+        return <Tag>{htmlString}</Tag>;
+      }
+      const htmlString = "This is some <b>bold</b> text.";
+      const tag = "div";
+      console.log(RenderHtmlTag({htmlString: htmlString, tag: tag}))
 
     return(
         <div className={styles.editor}>
@@ -57,7 +66,7 @@ export const Editor = () => {
                     />
                 </div>
                 <div className={styles.result}>
-                    <pre>{JSON.stringify(convertNodeToJSON(text.element), null , 2)}</pre>
+                    <pre>{JSON.stringify(convertNodeToJSON(RenderHtmlTag({htmlString: htmlString, tag: tag})), null , 2)}</pre>
                 </div>
             </div>
         </div>

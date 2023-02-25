@@ -9,6 +9,7 @@ interface NodeJson {
   };
 }
 
+//todo handle custom components or just call the function instead of jsx elements
 export function convertNodeToJSON(obj: NodeJson | Array<NodeJson> | null): NodeJson {
   let newNode: NodeJson = {
     type: '',

@@ -7,6 +7,7 @@ import TestClass from './testClass';
 import { convertNodeToJSON } from './parser/convertNodeToJSON';
 import {createReactElement} from './parser/createJSX';
 import { Editor } from './modules/editor';
+import { SizeBox } from './components/sizeBox';
 
 const BasicText = () => {
   return(
@@ -28,10 +29,11 @@ const App = () => {
   sheeth.push(BasicText())
   console.log(JSON.stringify(convertNodeToJSON(BasicText())))
   console.log(createReactElement(convertNodeToJSON(BasicText())))
+  console.log(SizeBox({name: "name", children:<div>test</div>}))
 
   return(
     <div className='main'>
-      <Editor/>
+      {/* <Editor/> */}
     </div>
   )
 }
