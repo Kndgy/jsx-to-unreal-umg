@@ -1,13 +1,13 @@
-import React, { ReactNode, useRef } from 'react'
+import React, {useRef } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 // import { Extract } from './parser/jsxExtractor';
-import TestClass from './testClass';
+// import TestClass from './testClass';
 // import { CreateJsx, CreateJSON } from 'jsx-transform-json';
-import { convertNodeToJSON } from './parser/convertNodeToJSON';
-import {createReactElement} from './parser/createJSX';
+// import { convertNodeToJSON } from './parser/convertNodeToJSON';
+// import {createReactElement} from './parser/createJSX';
 import { Editor } from './modules/editor';
-import { SizeBox } from './components/sizeBox';
+// import { SizeBox } from './components/sizeBox';
 
 const BasicText = () => {
   return(

@@ -1,5 +1,4 @@
-import { createRef, useEffect, useState } from 'react'
-import { renderToStaticMarkup } from "react-dom/server";
+import {useState } from 'react'
 import styles from './editor.module.css'
 import { convertNodeToJSON } from '../parser/convertNodeToJSON'
 
@@ -73,7 +72,7 @@ export const Editor = () => {
     // console.log(convertNodeToJSON(RenderHtmlTags({tagList:trimmed})))
 
     const codeCheck = () => {
-        
+
     }
     
     return(
