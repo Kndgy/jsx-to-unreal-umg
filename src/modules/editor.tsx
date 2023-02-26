@@ -3,6 +3,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import styles from './editor.module.css'
 import { convertNodeToJSON } from '../parser/convertNodeToJSON'
 
+
 export const Editor = () => {
 
     //handle separate string and html element
@@ -15,37 +16,66 @@ export const Editor = () => {
         setText({text:event.target.value, element: <div>test</div> });
         console.log(event.target.value)
     }
-    console.log(text.element)
-    console.log(<div>test</div>)
     
     //dynamically extract tag and content in between
-    function trimStringTags(str: string): { tagName: string, content: string }[] {
+    function trimStringTags(str: string): { tag: string, htmlString: string }[] {
         const pattern = /<(\w+)>(.*?)<\/\1>/g;
         const matches = [];
         let match;
         while ((match = pattern.exec(str))) {
-          matches.push({ tagName: match[1], content: match[2] });
+          matches.push({ tag: match[1], htmlString: match[2] });
         }
         return matches;
     }
+    /*example usage
     const str = "start should be ignored <example>text</example> with <multiple>multiple</multiple> end should be ignored too.";
     const trimmed = trimStringTags(str);
-    console.log(trimmed);
+    */
     // Output: [ { tagName: 'example', content: 'text' }, { tagName: 'multiple', content: 'multiple' } ]
+
+    const trimmed = trimStringTags(text.text);
     
-    //html rendered finished, check above comments
     interface Props {
         htmlString: string;
         tag: string;
-      }
-      function RenderHtmlTag({ htmlString, tag }: Props) {
-        const Tag = tag as keyof JSX.IntrinsicElements;
-        return <Tag>{htmlString}</Tag>;
-      }
-      const htmlString = "This is some <b>bold</b> text.";
-      const tag = "div";
-      console.log(RenderHtmlTag({htmlString: htmlString, tag: tag}))
+        key?: string | number | null;
+    }
 
+    function RenderHtmlTag({ htmlString, tag, key }: Props) {
+        const Tag = tag as keyof JSX.IntrinsicElements;
+        return <Tag key={key}>{htmlString}</Tag>;
+    }
+
+    /*example usage
+    const htmlString = "This is some bold text.";
+    const tag = "div";
+    console.log(RenderHtmlTag({htmlString: htmlString, tag: tag}))
+    */
+
+    interface Props {
+        tag: string;
+        htmlString: string;
+    }
+    
+    interface TagProps {
+        tagList: Props[];
+    }
+    
+    function RenderHtmlTags({ tagList }: TagProps) {
+        return (
+            <>
+            {tagList.map((tagProps, index) => (RenderHtmlTag({htmlString:tagProps.htmlString, tag:tagProps.tag, key:index})))}
+            </>
+        );
+    }
+
+    // console.log(RenderHtmlTags({tagList:trimmed}))
+    // console.log(convertNodeToJSON(RenderHtmlTags({tagList:trimmed})))
+
+    const codeCheck = () => {
+        
+    }
+    
     return(
         <div className={styles.editor}>
             <div className={styles.sideBar}>
@@ -66,7 +96,7 @@ export const Editor = () => {
                     />
                 </div>
                 <div className={styles.result}>
-                    <pre>{JSON.stringify(convertNodeToJSON(RenderHtmlTag({htmlString: htmlString, tag: tag})), null , 2)}</pre>
+                    <pre>{JSON.stringify(convertNodeToJSON(RenderHtmlTags({tagList:trimmed})), null , 2)}</pre>
                 </div>
             </div>
         </div>

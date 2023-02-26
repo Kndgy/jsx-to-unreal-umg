@@ -27,13 +27,13 @@ const App = () => {
   let sheeth = []
 
   sheeth.push(BasicText())
-  console.log(JSON.stringify(convertNodeToJSON(BasicText())))
-  console.log(createReactElement(convertNodeToJSON(BasicText())))
-  console.log(SizeBox({name: "name", children:<div>test</div>}))
+  // console.log(JSON.stringify(convertNodeToJSON(BasicText())))
+  // console.log(createReactElement(convertNodeToJSON(BasicText())))
+  // console.log(SizeBox({name: "name", children:<div>test</div>}))
 
   return(
     <div className='main'>
-      {/* <Editor/> */}
+      <Editor/>
     </div>
   )
 }
