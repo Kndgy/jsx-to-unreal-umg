@@ -4,8 +4,8 @@ import './index.css'
 // import { Extract } from './parser/jsxExtractor';
 // import TestClass from './testClass';
 // import { CreateJsx, CreateJSON } from 'jsx-transform-json';
-// import { convertNodeToJSON } from './parser/convertNodeToJSON';
-// import {createReactElement} from './parser/createJSX';
+import { convertNodeToJSON } from './parser/convertNodeToJSON';
+import {createReactElement} from './parser/createJSX';
 import { Editor } from './modules/editor';
 // import { SizeBox } from './components/sizeBox';
 
@@ -15,6 +15,9 @@ const BasicText = () => {
     <div key={1} ref={useRef().current} style={{color:"black", backgroundColor:"white"}} className='sizebox'>
         <div key={2} className='textblock'>
             content goes here
+            <div key={2} className='textblock-siblings'>
+            content goes here for sibligns
+        </div>
         </div>
     </div>
   )
@@ -27,13 +30,16 @@ const App = () => {
   let sheeth = []
 
   sheeth.push(BasicText())
-  // console.log(JSON.stringify(convertNodeToJSON(BasicText())))
-  // console.log(createReactElement(convertNodeToJSON(BasicText())))
+  console.log(convertNodeToJSON(BasicText()))
+  console.log(createReactElement(convertNodeToJSON(BasicText())))
+  // console.log(restru)
   // console.log(SizeBox({name: "name", children:<div>test</div>}))
-
   return(
     <div className='main'>
       <Editor/>
+      <pre>
+        {JSON.stringify(convertNodeToJSON(BasicText()), null, 2)}
+      </pre>
     </div>
   )
 }

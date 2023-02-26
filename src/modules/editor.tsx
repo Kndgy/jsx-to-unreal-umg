@@ -1,13 +1,12 @@
-import {useState } from 'react'
+import React, {useState } from 'react'
 import styles from './editor.module.css'
 import { convertNodeToJSON } from '../parser/convertNodeToJSON'
 
 
 export const Editor = () => {
 
-    //handle separate string and html element
     const [text, setText] = useState({
-        text:"<div>this is text</div>",
+        text:`<div style={{color:"white"}} className="classname1">this is text <div> siblings <div> first siblings nested <div> first siblings second nested </div> </div> test </div> last<i>second siblings</i>Another example</div>`,
         element:<></>
     })
 
@@ -16,64 +15,40 @@ export const Editor = () => {
         console.log(event.target.value)
     }
     
-    //dynamically extract tag and content in between
-    function trimStringTags(str: string): { tag: string, htmlString: string }[] {
-        const pattern = /<(\w+)>(.*?)<\/\1>/g;
-        const matches = [];
-        let match;
-        while ((match = pattern.exec(str))) {
-          matches.push({ tag: match[1], htmlString: match[2] });
+    function createReactElements(str: string): React.ReactNode[] {
+        const container = document.createElement("div");
+        container.innerHTML = str;
+        const childNodes = Array.from(container.childNodes);
+        
+        let keyIndex = 0;
+        
+        const parseNode = (node: Node): React.ReactNode => {
+          if (node.nodeType === Node.TEXT_NODE) {
+            return node.textContent;
+          } else if (node.nodeType === Node.ELEMENT_NODE) {
+            const element = node as Element;
+            const tagName = element.nodeName.toLowerCase();
+            const className = element.hasAttribute("class") ? element.getAttribute("class") : undefined;
+            const style = element.hasAttribute("style") ? element.getAttribute("style") : undefined;
+            console.log(style)
+            const childNodes = Array.from(element.childNodes);
+            const children = childNodes.map((childNode) => parseNode(childNode)).filter((child) => child !== null);
+            return React.createElement(tagName, { 
+              key: `${keyIndex++}`,
+              className: className,
+              style: style
+            }, children);
+          } else {
+            return null;
+          }
         }
-        return matches;
-    }
-    /*example usage
-    const str = "start should be ignored <example>text</example> with <multiple>multiple</multiple> end should be ignored too.";
-    const trimmed = trimStringTags(str);
-    */
-    // Output: [ { tagName: 'example', content: 'text' }, { tagName: 'multiple', content: 'multiple' } ]
-
-    const trimmed = trimStringTags(text.text);
-    
-    interface Props {
-        htmlString: string;
-        tag: string;
-        key?: string | number | null;
-    }
-
-    function RenderHtmlTag({ htmlString, tag, key }: Props) {
-        const Tag = tag as keyof JSX.IntrinsicElements;
-        return <Tag key={key}>{htmlString}</Tag>;
-    }
-
-    /*example usage
-    const htmlString = "This is some bold text.";
-    const tag = "div";
-    console.log(RenderHtmlTag({htmlString: htmlString, tag: tag}))
-    */
-
-    interface Props {
-        tag: string;
-        htmlString: string;
-    }
-    
-    interface TagProps {
-        tagList: Props[];
-    }
-    
-    function RenderHtmlTags({ tagList }: TagProps) {
-        return (
-            <>
-            {tagList.map((tagProps, index) => (RenderHtmlTag({htmlString:tagProps.htmlString, tag:tagProps.tag, key:index})))}
-            </>
-        );
-    }
-
-    // console.log(RenderHtmlTags({tagList:trimmed}))
-    // console.log(convertNodeToJSON(RenderHtmlTags({tagList:trimmed})))
-
-    const codeCheck = () => {
-
-    }
+        
+        return childNodes.map((childNode) => parseNode(childNode)).filter((child) => child !== null);
+      }
+      
+      
+    const reactElements = createReactElements(text.text);
+    console.log(reactElements)
     
     return(
         <div className={styles.editor}>
@@ -86,6 +61,7 @@ export const Editor = () => {
                 </div>
             </div> 
             <div className={styles.content}>
+                {/* {reactElements} */}
                 <div className={styles.inputContainer}>
                     <textarea 
                         className={styles.input}
@@ -95,7 +71,7 @@ export const Editor = () => {
                     />
                 </div>
                 <div className={styles.result}>
-                    <pre>{JSON.stringify(convertNodeToJSON(RenderHtmlTags({tagList:trimmed})), null , 2)}</pre>
+                    <pre>{JSON.stringify(convertNodeToJSON(createReactElements(text.text)), null , 2)}</pre>
                 </div>
             </div>
         </div>
