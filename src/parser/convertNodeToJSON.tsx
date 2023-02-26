@@ -1,3 +1,5 @@
+import React, { ReactNode } from 'react';
+
 interface NodeJson {
   type: string | Function;
   key?: string | number | null;
@@ -9,8 +11,7 @@ interface NodeJson {
   };
 }
 
-//todo handle custom components or just call the function instead of jsx elements
-export function convertNodeToJSON(obj: NodeJson | Array<NodeJson> | null): NodeJson {
+export function convertNodeToJSON(node: ReactNode): NodeJson {
   let newNode: NodeJson = {
     type: '',
     props: {
@@ -19,70 +20,52 @@ export function convertNodeToJSON(obj: NodeJson | Array<NodeJson> | null): NodeJ
       children: []
     }
   }
-  function recurse(obj: NodeJson | Array<NodeJson>, newNode: NodeJson) {
+
+  function recurse(obj: ReactNode, newNode: NodeJson) {
     if (Array.isArray(obj)) {
       obj.forEach(item => recurse(item, newNode))
-    } else {
-      if (obj.hasOwnProperty("type")) {
-        newNode.type = obj.type;
-      }
-      if (obj.hasOwnProperty("key")) {
-        newNode.key = obj.key;
-      }
-      if (obj.hasOwnProperty("ref")) {
-        newNode.ref = obj.ref;
-      }
-      if (obj.hasOwnProperty("props")) {
-        if (obj.props.hasOwnProperty("className")) {
-          newNode.props.className = obj.props.className;
-        }
-        if (obj.props.hasOwnProperty("style")) {
-            newNode.props.style = obj.props.style;
-        }
-        if (obj.props.hasOwnProperty("children")) {
-          if (Array.isArray(obj.props.children)) {
-            obj.props.children.forEach((child: NodeJson | string) => {
-              if (typeof child === 'string') {
-                newNode.props.children.push(child);
-              } else {
-                let newChild = {
-                  type: '',
-                  key: '',
-                  ref: '',
-                  props: {
-                    className: '',
-                    style: {},
-                    children: []
-                  }
+    } else if (typeof obj === 'object' && obj !== null) {
+      if (React.isValidElement(obj)) {
+        const element = obj as React.ReactElement;
+        newNode.type = element.type;
+        newNode.key = element.key;
+        newNode.props.className = element.props.className ?? '';
+        newNode.props.style = element.props.style ?? {};
+        if (element.props.children) {
+          React.Children.forEach(element.props.children, (child: ReactNode) => {
+            if (typeof child === 'string') {
+              newNode.props.children.push(child);
+            } else {
+              let newChild = {
+                type: '',
+                key: '',
+                ref: null,
+                props: {
+                  className: '',
+                  style: {},
+                  children: []
                 }
-                recurse(child, newChild);
-                newNode.props.children.push(newChild);
               }
-            });
-          } else if (typeof obj.props.children === 'string') {
-            newNode.props.children.push(obj.props.children);
-          } else {
-            let newChild = {
-              type: '',
-              key: '',
-              ref: '',
-              props: {
-                className: '',
-                style: {},
-                children: []
-              }
+              recurse(child, newChild);
+              newNode.props.children.push(newChild);
             }
-            recurse(obj.props.children, newChild);
-            newNode.props.children.push(newChild);
-          }
+          });
         }
+      } else {
+        console.log(`Warning: Cannot convert unsupported type to JSON: ${obj}`);
       }
+    } else if (typeof obj === 'string') {
+      newNode.props.children.push(obj);
+    } else {
+      console.log(`Warning: Cannot convert unsupported type to JSON: ${obj}`);
     }
   }
-  if(obj == null) {
-    console.log("is a null")
-  }else{
-    recurse(obj, newNode);
+
+  if(node == null) {
+    console.log("is null");
+  } else {
+    recurse(node, newNode);
   }
+
   return newNode;
 }
