@@ -6,7 +6,7 @@ import { convertNodeToJSON } from '../parser/convertNodeToJSON'
 export const Editor = () => {
 
     const [text, setText] = useState({
-        text:`<div style={{color:"white"}} className="classname1">this is text <div> siblings <div> first siblings nested <div> first siblings second nested </div> </div> test </div> last<i>second siblings</i>Another example</div>`,
+        text:`<div className="classname1">this is text <div> siblings <div> first siblings nested <div> first siblings second nested </div> </div> test </div> last<i>second siblings</i>Another example</div>`,
         element:<></>
     })
 
@@ -28,7 +28,7 @@ export const Editor = () => {
           } else if (node.nodeType === Node.ELEMENT_NODE) {
             const element = node as Element;
             const tagName = element.nodeName.toLowerCase();
-            const className = element.hasAttribute("class") ? element.getAttribute("class") : undefined;
+            const className = element.hasAttribute("className") ? element.getAttribute("className") : undefined;
             const style = element.hasAttribute("style") ? element.getAttribute("style") : undefined;
             console.log(style)
             const childNodes = Array.from(element.childNodes);
@@ -36,7 +36,7 @@ export const Editor = () => {
             return React.createElement(tagName, { 
               key: `${keyIndex++}`,
               className: className,
-              style: style
+            //   style: style
             }, children);
           } else {
             return null;
