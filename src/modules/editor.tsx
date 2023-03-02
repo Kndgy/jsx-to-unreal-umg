@@ -6,7 +6,7 @@ import { convertNodeToJSON } from '../parser/convertNodeToJSON'
 export const Editor = () => {
 
     const [text, setText] = useState({
-        text:`<div className="classname1">this is text <div> siblings <div> first siblings nested <div> first siblings second nested </div> </div> test </div> last<i>second siblings</i>Another example</div>`,
+        text:`<div style={{color:"black", backgroundColor:"white"}} className="classname1">this is text <div> siblings <div> first siblings nested <div> first siblings second nested </div> </div> test </div> last<i>second siblings</i>Another example</div>`,
         element:<></>
     })
 
@@ -16,40 +16,53 @@ export const Editor = () => {
     }
     
     function createReactElements(str: string): React.ReactNode[] {
-        const container = document.createElement("div");
-        container.innerHTML = str;
-        const childNodes = Array.from(container.childNodes);
-        
-        let keyIndex = 0;
-        
-        const parseNode = (node: Node): React.ReactNode => {
-          if (node.nodeType === Node.TEXT_NODE) {
-            return node.textContent;
-          } else if (node.nodeType === Node.ELEMENT_NODE) {
-            const element = node as Element;
-            const tagName = element.nodeName.toLowerCase();
-            const className = element.hasAttribute("className") ? element.getAttribute("className") : undefined;
-            const style = element.hasAttribute("style") ? element.getAttribute("style") : undefined;
-            console.log(style)
-            const childNodes = Array.from(element.childNodes);
-            const children = childNodes.map((childNode) => parseNode(childNode)).filter((child) => child !== null);
-            return React.createElement(tagName, { 
-              key: `${keyIndex++}`,
-              className: className,
-            //   style: style
-            }, children);
-          } else {
-            return null;
+      const container = document.createElement("div");
+      container.innerHTML = str;
+      const childNodes = Array.from(container.childNodes);
+      
+      let keyIndex = 0;
+    
+      const parseNode = (node: Node): React.ReactNode => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          return node.textContent;
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          const element = node as Element;
+          const tagName = element.nodeName.toLowerCase();
+          const className = element.hasAttribute("className") ? element.getAttribute("className") : undefined;
+          const style = element.hasAttribute("style") ? parseStyleString(element.getAttribute("style")) : undefined;
+          const childNodes = Array.from(element.childNodes);
+          const children = childNodes.map((childNode) => parseNode(childNode)).filter((child) => child !== null);
+          return React.createElement(tagName, { 
+            key: `${keyIndex++}`,
+            className: className,
+            style: style
+          }, children);
+        } else {
+          return null;
+        }
+      };
+      
+      const parseStyleString = (styleStr: string | null | undefined) => {
+        if (!styleStr) return undefined;
+      
+        const styles = styleStr.split(';');
+        const styleObj: { [key: string]: string } = {};
+        for (let style of styles) {
+          const [key, value] = style.split(':');
+          if (key && value) {
+            styleObj[key.trim()] = value.trim();
           }
         }
-        
-        return childNodes.map((childNode) => parseNode(childNode)).filter((child) => child !== null);
+        return styleObj;
       }
-      
-      
+       
+      return childNodes.map((childNode) => parseNode(childNode)).filter((child) => child !== null);
+    }
+    
+       
     const reactElements = createReactElements(text.text);
     console.log(reactElements)
-    
+
     return(
         <div className={styles.editor}>
             <div className={styles.sideBar}>
@@ -58,7 +71,7 @@ export const Editor = () => {
                 </div>
                 <div className={styles.bottomTab}>
                     placeholder
-                </div>
+                   </div>
             </div> 
             <div className={styles.content}>
                 {/* {reactElements} */}
