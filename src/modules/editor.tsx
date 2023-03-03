@@ -7,11 +7,10 @@ export const Editor = () => {
 
     const [text, setText] = useState({
         text:`<div style={{color:"black", backgroundColor:"white"}} className="classname1">this is text <div> siblings <div> first siblings nested <div> first siblings second nested </div> </div> test </div> last<i>second siblings</i>Another example</div>`,
-        element:<></>
     })
 
     const handleText = (event:any) => {
-        setText({text:event.target.value, element: <div>test</div> });
+        setText({text:event.target.value});
         console.log(event.target.value)
     }
     
