@@ -1,6 +1,14 @@
 import React, {useState} from "react";
 import styles from "./componentsBar.module.css"
 
+const sizeBox = (children:React.ReactNode) => {
+    return(
+        <>
+            {children}
+        </>
+    )
+}
+
 type ComponentProps = {
     index: number;
     children: React.ReactNode;
@@ -9,59 +17,55 @@ type ComponentProps = {
 const ComponentList: ComponentProps[] = [
     {
         index: 0, 
-        children:<>zero</>
+        children:<>sizeBox</>
     },
     {
         index: 1, 
-        children:<>one</>
+        children:<>TextBlock</>
     },
     {
         index: 2, 
-        children:<>three</>
+        children:<>text test</>
     } 
 ]
 
-const Top = () => {
+export const ComponentsBar = () => {
     const [componentList, setComponentList] = useState(ComponentList);
+    const [draggedIndex, setDraggedIndex] = useState(-1);
   
-    const onDragStart = (e:any) => {
-      console.log(e.target)
+    const onDragStart = (index:number) => (e: React.DragEvent<HTMLDivElement>) => {
+      console.log(index)
+    //   setDraggedIndex(index);
     };
   
-    return (
-      <div className={styles.Top}>
-        {componentList.map((component, index) => (
-          <div key={index} draggable="true" onDragStart={onDragStart}>
-            {component.children}
-          </div>
-        ))}
-      </div>
-    );
-  };
+    const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+        console.log("hello")
+    };
 
-type BottomProps = {
-    draggedElement?: ComponentProps;
-}
-
-const Bottom = ({draggedElement}:BottomProps) => {
-    return(
-        <div>
-            bottom
-            {draggedElement && (
-                <div>
-                    Dragged element: {draggedElement.children} (index: {draggedElement.index})
-                </div>
-            )}
+    const Top = () => {
+      return (
+        <div className={styles.Top}>
+          {componentList.map((component, index) => (
+            <div key={index} draggable="true" onDragStart={onDragStart(index)}>
+              {component.children}
+            </div>
+          ))}
         </div>
-    )
-}
-
-export const ComponentsBar = () => {
+      );
+    };
+  
+    const Bottom = () => {
+      return (
+        <div onDrop={onDrop} onDragOver={e => e.preventDefault()}>
+          bottom
+          </div>
+      );
+    }
   
     return (
       <div className={styles.parent}>
         <Top />
-        <Bottom/>
+        <Bottom />
       </div>
     );
   }
