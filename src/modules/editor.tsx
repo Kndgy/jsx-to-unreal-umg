@@ -1,6 +1,7 @@
 import React, {useState } from 'react'
 import styles from './editor.module.css'
 import { convertNodeToJSON } from '../parser/convertNodeToJSON'
+import { ComponentsBar } from './componentsBar/componentsBar'
 
 
 export const Editor = () => {
@@ -60,7 +61,7 @@ export const Editor = () => {
     
        
     const reactElements = createReactElements(text.text);
-    console.log(reactElements)
+    // console.log(reactElements)
 
     return(
         <div className={styles.editor}>
@@ -69,7 +70,7 @@ export const Editor = () => {
                     placeholder
                 </div>
                 <div className={styles.bottomTab}>
-                    placeholder
+                    <ComponentsBar/>
                    </div>
             </div> 
             <div className={styles.content}>

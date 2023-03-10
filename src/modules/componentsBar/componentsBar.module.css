@@ -1,0 +1,11 @@
+.parent{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.Top{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}

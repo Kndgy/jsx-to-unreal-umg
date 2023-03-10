@@ -30,8 +30,8 @@ const App = () => {
   let sheeth = []
 
   sheeth.push(BasicText())
-  console.log(convertNodeToJSON(BasicText()))
-  console.log(createReactElement(convertNodeToJSON(BasicText())))
+  // console.log(convertNodeToJSON(BasicText()))
+  // console.log(createReactElement(convertNodeToJSON(BasicText())))
   // console.log(restru)
   // console.log(SizeBox({name: "name", children:<div>test</div>}))
   return(
