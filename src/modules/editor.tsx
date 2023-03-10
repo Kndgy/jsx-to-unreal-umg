@@ -1,7 +1,7 @@
 import React, {useState } from 'react'
 import styles from './editor.module.css'
 import { convertNodeToJSON } from '../parser/convertNodeToJSON'
-import { ComponentsBar } from './componentsBar/componentsBar'
+import { ComponentProps, ComponentsBar } from './componentsBar/componentsBar'
 
 
 export const Editor = () => {
@@ -63,6 +63,11 @@ export const Editor = () => {
     const reactElements = createReactElements(text.text);
     // console.log(reactElements)
 
+    const handleDrop = (componentData: ComponentProps) => {
+      console.log(componentData.children);
+      console.log("hello")
+    };
+
     return(
         <div className={styles.editor}>
             <div className={styles.sideBar}>
@@ -70,7 +75,7 @@ export const Editor = () => {
                     placeholder
                 </div>
                 <div className={styles.bottomTab}>
-                    <ComponentsBar/>
+                    <ComponentsBar onDropCallback={handleDrop} />
                    </div>
             </div> 
             <div className={styles.content}>

@@ -9,10 +9,14 @@ const sizeBox = (children:React.ReactNode) => {
     )
 }
 
-type ComponentProps = {
+export type ComponentProps = {
     index: number;
     children: React.ReactNode;
 }
+
+type ComponentsBarProps = {
+    onDropCallback: (componentData: ComponentProps) => void;
+};
 
 const ComponentList: ComponentProps[] = [
     {
@@ -29,7 +33,7 @@ const ComponentList: ComponentProps[] = [
     } 
 ]
 
-export const ComponentsBar = () => {
+export const ComponentsBar = ({onDropCallback}: ComponentsBarProps) => {
     const [draggedIndex, setDraggedIndex] = useState(-1);
     const [Droped, setDroppedIndex ] = useState(-1)
   
@@ -40,6 +44,7 @@ export const ComponentsBar = () => {
   
     const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
         console.log("hello")
+        onDropCallback(ComponentList[draggedIndex])
         setDroppedIndex(draggedIndex)
     };
 
@@ -84,4 +89,4 @@ export const ComponentsBar = () => {
             <Bottom />
         </div>
     );
-  }
+}
