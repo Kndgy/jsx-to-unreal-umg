@@ -35,9 +35,9 @@ const App = () => {
   return(
     <div className='main'>
       <Editor/>
-      <pre>
+      {/* <pre>
         {JSON.stringify(convertNodeToJSON(BasicText()), null, 2)}
-      </pre>
+      </pre> */}
     </div>
   )
 }

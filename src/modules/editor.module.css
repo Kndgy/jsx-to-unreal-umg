@@ -1,4 +1,5 @@
 .editor{
+    margin: 0;
     display: flex;
     flex-direction: row;
     background-color: aliceblue;
@@ -13,6 +14,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 20px;
 }
 
 .pickerTab{
@@ -44,5 +46,6 @@
 .content{
     width: 100%;
     height: 100%;
+    padding: 20px;
     background-color: bisque;
 }

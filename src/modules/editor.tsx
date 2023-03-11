@@ -20,7 +20,7 @@ export const Editor = () => {
                 </div>
                 <div className={styles.bottomTab}>
                     <ComponentsBar onDropCallback={handleDrop} />
-                   </div>
+                </div>
             </div> 
             <div className={styles.content}>
                 <AstViewer/>

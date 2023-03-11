@@ -20,17 +20,17 @@ export const AstViewer = () => {
         <div className={styles.container}>
             {/* {reactElements} */}
             <div className={styles.inputContainer}>
-                    <textarea 
-                        className={styles.input}
-                        id='text'
-                        value={text.text}
-                        onChange={handleText}
-                    />
-                </div>
-                <div className={styles.result}>
-                    test
-                    <pre>{JSON.stringify(convertNodeToJSON(ParseStringtoNode(text.text)), null , 2)}</pre>
-                </div>
+                <textarea 
+                    className={styles.input}
+                    id='text'
+                    value={text.text}
+                    onChange={handleText}
+                />
+            </div>
+            <div className={styles.result}>
+                test
+                <pre>{JSON.stringify(convertNodeToJSON(ParseStringtoNode(text.text)), null , 2)}</pre>
+            </div>
         </div>
     )
 }
