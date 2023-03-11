@@ -7,8 +7,8 @@ import { AstViewer } from './astViewer'
 export const Editor = () => {
     // console.log(reactElements)
 
-    const handleDrop = (componentData: ComponentProps) => {
-      console.log(componentData.children);
+    const handleDrop = () => {
+      // console.log(componentData.children);
       console.log("hello")
     };
 

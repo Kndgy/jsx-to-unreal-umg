@@ -1,12 +1,17 @@
-import React, {useState} from "react";
+import React, {DragEventHandler, useState} from "react";
+import { SizeBox } from "../../components/sizeBox";
 import styles from "./componentsBar.module.css"
 
-const sizeBox = (children:React.ReactNode) => {
-    return(
-        <>
-            {children}
-        </>
-    )
+interface SizeBoxLocalProps {
+    children?: React.ReactNode
+    title?: string
+    canHaveChildren?: boolean
+    onDrop?: DragEventHandler
+}
+
+interface TextBlockLocalProps {
+    text?: string
+    title?: string
 }
 
 export type ComponentProps = {
@@ -15,78 +20,51 @@ export type ComponentProps = {
 }
 
 type ComponentsBarProps = {
-    onDropCallback: (componentData: ComponentProps) => void;
+    onDropCallback: () => void;
 };
 
-const ComponentList: ComponentProps[] = [
-    {
-        index: 0, 
-        children:<div className={styles.dragEl}>sizeBox</div>
-    },
-    {
-        index: 1, 
-        children:<div className={styles.dragEl}>TextBlock</div>
-    },
-    {
-        index: 2, 
-        children:<div className={styles.dragEl}>text test</div>
-    } 
-]
+const SizeBoxLocal = ({title, children, canHaveChildren, onDrop}:SizeBoxLocalProps) => {
+    if(canHaveChildren){
+        return(
+            <div className={styles.dragEl} draggable onDrop={onDrop} onDragOver={e => e.preventDefault()}>
+                {title}
+                {children}
+            </div>
+        )
+    }
+    return(
+        <div className={styles.dragEl} draggable>
+            {title}
+            {children}
+        </div>
+    )
+}
+
+const TextBlockLocal = ({title, text}:TextBlockLocalProps) =>{
+    return(
+        <div className={styles.dragEl} draggable>
+            {title}
+            {text}
+        </div>
+    )
+}
 
 export const ComponentsBar = ({onDropCallback}: ComponentsBarProps) => {
-    const [draggedIndex, setDraggedIndex] = useState(-1);
-    const [Droped, setDroppedIndex ] = useState(-1)
-  
-    const onDragStart = (index:number) => (e: React.DragEvent<HTMLDivElement>) => {
-        console.log(index)
-        setDraggedIndex(index);
-    };
-  
-    const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
-        console.log("hello")
-        onDropCallback(ComponentList[draggedIndex])
-        setDroppedIndex(draggedIndex)
-    };
 
-    const Top = () => {
-        return (
-            <div className={styles.Top}>
-                {ComponentList.map((component, index) => (
-                    <div key={index} draggable="true" onDragStart={onDragStart(index)}>
-                        {component.children}
-                    </div>
-                ))}
-            </div>
-        );
-    };
-  
-    const Bottom = () => {
-        if (Droped === -1) {
-            return (
-                <div onDrop={onDrop} onDragOver={e => e.preventDefault()}>
-                    drop here    
-                </div>
-            )
-        }
-        return (
-            <div onDrop={onDrop} onDragOver={e => e.preventDefault()}>
-                drop here    
-                <br/>
-                indexes
-                <br/>
-                {Droped}
-                <br/>
-                components
-                <br/>
-                {ComponentList[Droped].children}
-            </div>
-        );
+    const onDrop = () => {
+        onDropCallback()
+        console.log("dropped")
     }
 
     return (
         <div className={styles.parent}>
-            <Top />
-            <Bottom />
+            <div className={styles.componentList}>
+                <SizeBoxLocal title="sizebox" onDrop={onDrop} />
+                <TextBlockLocal title="textblock"/>
+            </div>
+            <div className={styles.widgetHiearchy}>
+                <SizeBoxLocal title="sizebox" canHaveChildren={true}/>
+            </div>
         </div>
     );
 }

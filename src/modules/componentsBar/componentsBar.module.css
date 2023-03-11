@@ -13,9 +13,16 @@
 
 .dragEl{
     background-color: navajowhite;
+    height: 20px;
 }
 
 .dragEl:hover{
     background-color: antiquewhite;
     cursor: grab;
+}
+
+.componentList{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
