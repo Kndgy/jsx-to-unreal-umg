@@ -23,8 +23,6 @@ const BasicText = () => {
   )
 }
 
-
-
 const App = () => {
 
   let sheeth = []
