@@ -7,30 +7,25 @@ import './index.css'
 import { convertNodeToJSON } from './parser/convertNodeToJSON';
 import {createReactElement} from './parser/createJSX';
 import { Editor } from './modules/editor';
+import { Extract } from './parser/RestructureJSXtoJSON';
 // import { SizeBox } from './components/sizeBox';
 
 const BasicText = () => {
   return(
     //use className to declare widget type, either custom component to support parent name or custom attributes
-    <div key={1} ref={useRef().current} style={{color:"black", backgroundColor:"white"}} className='sizebox'>
+      <div key={1} style={{color:"black", backgroundColor:"white"}} className='sizebox'>
         <div key={2} className='textblock'>
             content goes here
-            <div key={2} className='textblock-siblings'>
-            content goes here for sibligns
         </div>
-        </div>
-    </div>
+      </div>
   )
 }
 
 const App = () => {
 
-  let sheeth = []
-
-  sheeth.push(BasicText())
-  // console.log(convertNodeToJSON(BasicText()))
-  // console.log(createReactElement(convertNodeToJSON(BasicText())))
-  // console.log(restru)
+  console.log(convertNodeToJSON(BasicText()))
+  console.log(createReactElement(convertNodeToJSON(BasicText())))
+  console.log(JSON.stringify(Extract(BasicText())))
   // console.log(SizeBox({name: "name", children:<div>test</div>}))
   return(
     <div className='main'>
