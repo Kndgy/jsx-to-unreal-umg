@@ -8,6 +8,7 @@ interface NodeJson {
     className: string;
     style?: any;
     children: Array<NodeJson | string>;
+    name?: string
   };
 }
 
@@ -17,7 +18,8 @@ export function convertNodeToJSON(node: ReactNode): NodeJson {
     props: {
       className: '',
       style: {},
-      children: []
+      children: [],
+      name: ''
     }
   }
 
@@ -31,6 +33,12 @@ export function convertNodeToJSON(node: ReactNode): NodeJson {
         newNode.key = element.key;
         newNode.props.className = element.props.className ?? '';
         newNode.props.style = element.props.style ?? {};
+        newNode.props.name = element.props.name ?? ''
+        if (typeof element.type === 'function') {
+          console.log(element.type.name);
+          newNode.type = element.type.name ?? ''
+        }
+        
         if (element.props.children) {
           React.Children.forEach(element.props.children, (child: ReactNode) => {
             if (typeof child === 'string') {
@@ -43,7 +51,8 @@ export function convertNodeToJSON(node: ReactNode): NodeJson {
                 props: {
                   className: '',
                   style: {},
-                  children: []
+                  children: [],
+                  name: ''
                 }
               }
               recurse(child, newChild);

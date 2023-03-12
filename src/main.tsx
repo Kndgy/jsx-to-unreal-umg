@@ -119,8 +119,9 @@ function parseToUmg(){
 }
 
 console.log(parseToUmg())
-console.log(<SizeBox children={<TextBlock content='test'/>}/>)
-console.log(<TextBlock content='test'/>)
+console.log( <SizeBox name='test' children={<TextBlock children='test'/>}/> )
+// console.log(<TextBlock children='test'/>)
+console.log(BasicText())
 
 const App = () => {
 
@@ -134,7 +135,7 @@ const App = () => {
       <pre>
         {JSON.stringify(
           convertNodeToJSON(
-            BasicText()
+            <SizeBox name='SizeBox_Name' children={<TextBlock name='TextBlock_Name' children='test'/>}/>
             ),
             null, 
             2
