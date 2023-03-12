@@ -21,3 +21,6 @@ Begin Object Class=/Script/UMG.TextBlock Name="TextBlock_Name"
    Text=NSLOCTEXT("UMG", "TextBlockDefaultValue", "Text Block")
    DisplayLabel="TextBlock_Name"
 End Object
+
+
+begin object
