@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { convertNodeToJSON } from "../parser/convertNodeToJSON"
-import { ParseStringtoNode } from "../parser/ParseStringtoNode"
+import { convertNodeToJSON } from "../../parser/convertNodeToJSON"
+import { ParseStringtoNode } from "../../parser/ParseStringtoNode"
 import styles from './astViewer.module.css'
 
 export const AstViewer = () => {

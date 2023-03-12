@@ -1,7 +1,7 @@
 import React, {useState } from 'react'
 import styles from './editor.module.css'
-import { ComponentProps, ComponentsBar } from './componentsBar/componentsBar'
-import { AstViewer } from './astViewer'
+import { ComponentProps, ComponentsBar } from '../componentsBar/componentsBar'
+import { AstViewer } from '../astViewer/astViewer'
 
 
 export const Editor = () => {

@@ -6,7 +6,7 @@ import './index.css'
 // import { CreateJsx, CreateJSON } from 'jsx-transform-json';
 import { convertNodeToJSON } from './parser/convertNodeToJSON';
 import {createReactElement} from './parser/createJSX';
-import { Editor } from './modules/editor';
+import { Editor } from './modules/editor/editor';
 import { Extract } from './parser/RestructureJSXtoJSON';
 import { SizeBox } from './components/sizeBox';
 import { TextBlock } from './components/textblock';
