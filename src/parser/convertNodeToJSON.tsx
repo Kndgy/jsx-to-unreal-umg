@@ -12,7 +12,7 @@ interface NodeJson {
   };
 }
 
-export function convertNodeToJSON(node: ReactNode): NodeJson {
+export function convertNodeToJSON(node: NodeJson | ReactNode): NodeJson {
   let newNode: NodeJson = {
     type: '',
     props: {
@@ -23,7 +23,7 @@ export function convertNodeToJSON(node: ReactNode): NodeJson {
     }
   }
 
-  function recurse(obj: ReactNode, newNode: NodeJson) {
+  function recurse(obj: NodeJson | ReactNode, newNode: NodeJson) {
     if (Array.isArray(obj)) {
       obj.forEach(item => recurse(item, newNode))
     } else if (typeof obj === 'object' && obj !== null) {
@@ -40,7 +40,7 @@ export function convertNodeToJSON(node: ReactNode): NodeJson {
         }
         
         if (element.props.children) {
-          React.Children.forEach(element.props.children, (child: ReactNode) => {
+          React.Children.forEach(element.props.children, (child: NodeJson | ReactNode) => {
             if (typeof child === 'string') {
               newNode.props.children.push(child);
             } else {
