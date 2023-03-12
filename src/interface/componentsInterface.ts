@@ -9,5 +9,5 @@ export interface sizeBoxProps {
 
 export interface textBlockInterface {
     name?: string;
-    content?: string,
+    children?: string;
 }

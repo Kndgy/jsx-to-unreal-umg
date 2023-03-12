@@ -1,10 +1,10 @@
 import React from "react";
 import { textBlockInterface } from "../interface/componentsInterface";
 
-export const TextBlock = ({content}:textBlockInterface) => {
+export const TextBlock = ({children}:textBlockInterface) => {
     return(
         <div>
-            {content}
+            {children}
         </div>
     )
 }
