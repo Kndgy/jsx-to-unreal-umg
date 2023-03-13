@@ -35,7 +35,6 @@ export function convertNodeToJSON(node: NodeJson | ReactNode): NodeJson {
         newNode.props.style = element.props.style ?? {};
         newNode.props.name = element.props.name ?? ''
         if (typeof element.type === 'function') {
-          console.log(element.type.name);
           newNode.type = element.type.name ?? ''
         }
         
