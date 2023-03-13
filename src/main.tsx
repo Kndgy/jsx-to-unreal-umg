@@ -1,8 +1,6 @@
 import React, {useRef } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-// import { Extract } from './parser/jsxExtractor';
-// import TestClass from './testClass';
 // import { CreateJsx, CreateJSON } from 'jsx-transform-json';
 import { convertNodeToJSON } from './parser/convertNodeToJSON';
 import {createReactElement} from './parser/createJSX';
@@ -10,18 +8,6 @@ import { Editor } from './modules/editor/editor';
 import { Extract } from './parser/RestructureJSXtoJSON';
 import { SizeBox } from './components/sizeBox';
 import { TextBlock } from './components/textblock';
-
-
-const BasicText = () => {
-  return(
-    //use className to declare widget type, either custom component to support parent name or custom attributes
-      <div key={1} style={{color:"black", backgroundColor:"white"}} className='sizebox'>
-        <div key={2} className='textblock'>
-            content goes here
-        </div>
-      </div>
-  )
-}
 
 
 function parseToUmg(jsonStruct: any): string {
