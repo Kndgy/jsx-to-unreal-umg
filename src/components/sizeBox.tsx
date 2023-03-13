@@ -1,9 +1,9 @@
 import React from "react"
 import { sizeBoxProps } from "../interface/componentsInterface"
 
-export const SizeBox = ({name, children}:sizeBoxProps) => {
+export const SizeBox = ({children}:sizeBoxProps) => {
     return(
-        <div className={name}>
+        <div>
             {children}
         </div>
     )
