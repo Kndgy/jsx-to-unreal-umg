@@ -16,23 +16,22 @@ function parseToUmg(jsonStruct: any): string {
   let childrenString = jsonStruct.props.children;
 
   if (jsonStruct.type === "SizeBox") {
-    widgetType = "SizeBoxSlot";
+    // widgetType = "SizeBoxSlot";
     name = jsonStruct.props.name;
 
     childrenString = parseChildrenToUmg(jsonStruct.props.children);
-    
     return `
-      Begin Object Class=/Script/UMG.SizeBox Name="${name}"
+      Begin Object Class=/Script/UMG.${widgetType} Name="${name}"
 
-      Begin Object Class=/Script/UMG.SizeBoxSlot Name="SizeBoxSlot_0"
+      Begin Object Class=/Script/UMG.${widgetType}Slot Name="${widgetType}Slot_0"
       End Object
 
-      Begin Object Name="SizeBoxSlot_0"
-        Parent=/Script/UMG.SizeBox'"${name}"'
-        Content=/Script/UMG.TextBlock'"${jsonStruct.props.children[0].props.name}"'
+      Begin Object Name="${widgetType}Slot_0"
+        Parent=/Script/UMG.${widgetType}'"${name}"'
+        Content=/Script/UMG.${widgetType}'"${jsonStruct.props.children[0].props.name}"'
       End Object
 
-      Slots(0)=/Script/UMG.SizeBoxSlot'"SizeBoxSlot_0"'
+      Slots(0)=/Script/UMG.${widgetType}Slot'"SizeBoxSlot_0"'
       bExpandedInDesigner=True
       DisplayLabel="${name}"
 
@@ -50,7 +49,7 @@ function parseToUmg(jsonStruct: any): string {
     const content = jsonStruct.props.children[0];
     
     return `
-      Begin Object Class=/Script/UMG.TextBlock Name="${name}"
+      Begin Object Class=/Script/UMG.${widgetType} Name="${name}"
         Text=NSLOCTEXT("UMG", "TextBlockDefaultValue", "${content}")
         DisplayLabel='${name}'
       End Object
@@ -82,6 +81,7 @@ const structure = convertNodeToJSON(
       />}
     />
   )
+  
 console.log(parseToUmg(structure))
 
 const App = () => {
@@ -92,7 +92,7 @@ const App = () => {
   return(
     <div className='main'>
       {/* <Editor/> */}
-      result is in console log
+      {/* result is in console log */}
       <pre>
         {JSON.stringify(
           convertNodeToJSON(
