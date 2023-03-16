@@ -1,9 +1,11 @@
+import { canvasPanelInterface } from "../interface/componentsInterface"
 
 
-export const CanvasPanel = () => {
+//to do multiple children without fragment when used
+export const CanvasPanel = ({children}: canvasPanelInterface) => {
     return(
         <>
-            canvas
+            {children}
         </>
     )
 }

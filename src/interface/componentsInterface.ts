@@ -4,7 +4,7 @@ export type Nodes = | React.ReactNode
 
 export interface sizeBoxProps {
     name?: string;
-    children?: Nodes
+    children?: React.ReactNode
 }
 
 export interface textBlockInterface {
@@ -14,5 +14,5 @@ export interface textBlockInterface {
 
 export interface canvasPanelInterface {
     name?: string;
-    children?: Node[]
+    children?: React.ReactNode
 }
