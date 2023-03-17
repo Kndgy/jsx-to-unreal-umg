@@ -8,6 +8,7 @@ import { Editor } from './modules/editor/editor';
 import { Extract } from './parser/RestructureJSXtoJSON';
 import { SizeBox } from './components/sizeBox';
 import { TextBlock } from './components/textblock';
+import { CanvasPanel } from './components/canvasPanel';
 
 
 function parseToUmg(jsonStruct: any): string {
@@ -93,6 +94,18 @@ const App = () => {
     <div className='main'>
       {/* <Editor/> */}
       {/* result is in console log */}
+      <CanvasPanel>
+        {/* handle multiple texblock children on the component */}
+        <TextBlock>
+          sizebox
+          <TextBlock>
+            testblockss
+          </TextBlock>
+        </TextBlock>
+        <SizeBox>
+          textblock
+        </SizeBox>
+      </CanvasPanel>
       <pre>
         {JSON.stringify(
           convertNodeToJSON(

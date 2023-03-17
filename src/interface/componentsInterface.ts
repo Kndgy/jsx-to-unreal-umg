@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 export type Nodes = | React.ReactNode
 
@@ -14,5 +14,5 @@ export interface textBlockInterface {
 
 export interface canvasPanelInterface {
     name?: string;
-    children?: React.ReactNode
+    children?: ReactNode[] | ReactNode
 }
