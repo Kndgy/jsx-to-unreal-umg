@@ -7,7 +7,7 @@ import { TextBlock } from "./textblock";
 //to do multiple children without fragment when used
 export const CanvasPanel = ({children}: canvasPanelInterface) => {
     const validChildren = React.Children.toArray(children).filter(
-        (child) => React.isValidElement(child) && (child.type === SizeBox || child.type === TextBlock)
+        (child) => React.isValidElement(child) && (child.type === SizeBox || child.type === TextBlock || child.type === CanvasPanel)
     );
     
     return <div>{validChildren}</div>;
