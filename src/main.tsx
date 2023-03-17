@@ -90,22 +90,16 @@ const App = () => {
   // console.log(convertNodeToJSON(BasicText()))
   // console.log(createReactElement(convertNodeToJSON(BasicText())))
   // console.log(JSON.stringify(Extract(BasicText())))
+  console.log(<TextBlock>asds</TextBlock>)
   return(
     <div className='main'>
       {/* <Editor/> */}
       {/* result is in console log */}
-      <CanvasPanel>
-        {/* handle multiple texblock children on the component */}
+      <SizeBox>
         <TextBlock>
-          sizebox
-          <TextBlock>
-            testblockss
-          </TextBlock>
+          asd
         </TextBlock>
-        <SizeBox>
-          textblock
-        </SizeBox>
-      </CanvasPanel>
+      </SizeBox>
       <pre>
         {JSON.stringify(
           convertNodeToJSON(

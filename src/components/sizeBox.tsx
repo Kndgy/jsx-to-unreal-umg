@@ -3,9 +3,12 @@ import { sizeBoxProps } from "../interface/componentsInterface"
 import { TextBlock } from "./textblock";
 
 export const SizeBox = ({children}:sizeBoxProps) => {
-    const validChildren = React.Children.toArray(children).filter(
-        (child) => React.isValidElement(child) && (child.type === TextBlock || child.type === SizeBox)
-    );
-    
-    return <div>{validChildren}</div>;
+    const validChild = React.Children.only(children);
+
+    if (!React.isValidElement(validChild) || (validChild.type !== TextBlock && validChild.type !== SizeBox)) {
+        console.warn('SizeBox only accepts a single child of type TextBlock or SizeBox');
+    }
+
+
+    return <div>{validChild}</div>;
 }
