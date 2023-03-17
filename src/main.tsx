@@ -83,27 +83,62 @@ const structure = convertNodeToJSON(
     />
   )
   
-console.log(parseToUmg(structure))
+// console.log(parseToUmg(structure))
 
 const App = () => {
 
-  console.log(convertNodeToJSON( <TextBlock>asds</TextBlock> ))
-  console.log(createReactElement(convertNodeToJSON( <TextBlock>asds</TextBlock> )))
-  console.log(Extract( <TextBlock>asds</TextBlock> ))
-  console.log( <TextBlock>asds</TextBlock> )
+  interface Node {
+    type: string;
+    children: string | Node[];
+  }
+  
+  function htmlToJson(html: string): Node[] {
+    const result: Node[] = [];
+    let index = 0;
+  
+    while (index < html.length) {
+      const startTag = html.indexOf('<', index);
+      const endTag = html.indexOf('>', startTag);
+  
+      if (startTag === -1 || endTag === -1) {
+        break;
+      }
+  
+      const tag = html.slice(startTag + 1, endTag);
+      const isClosingTag = tag.startsWith('/');
+  
+      if (isClosingTag) {
+        index = endTag + 1;
+        continue;
+      }
+  
+      const nextStartTag = html.indexOf('<', endTag + 1);
+      const children = html.slice(endTag + 1, nextStartTag === -1 ? html.length : nextStartTag).trim();
+  
+      if (children === '') {
+        index = nextStartTag;
+        continue;
+      }
+  
+      result.push({
+        type: tag,
+        children: htmlToJson(children),
+      });
+  
+      index = nextStartTag;
+    }
+  
+    return result;
+  }
+  
+  const html = '<div>this is content <div><b>bold text</b></div></div>';
+  const json = htmlToJson(html);
+  console.log(json);
   return(
     <div className='main'>
       {/* <Editor/> */}
       {/* result is in console log */}
-      <pre>
-        {JSON.stringify(
-          convertNodeToJSON(
-            <SizeBox name='sizebox_parentParent' children={<SizeBox name='SizeBox_Parent' children={<SizeBox name='SizeBox_Name' children={<TextBlock name='TextBlock_Name' children='test'/>}/>} />} />
-            ),
-            null, 
-            2
-        )}
-      </pre>
+      <pre>{JSON.stringify(json, null, 4)}</pre>
     </div>
   )
 }
