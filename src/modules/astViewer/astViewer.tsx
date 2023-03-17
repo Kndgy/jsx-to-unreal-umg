@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { convertNodeToJSON } from "../../parser/convertNodeToJSON"
-import { ParseStringtoNode } from "../../parser/ParseStringtoNode"
+import { convertNodeToJSON } from "../../parser/createJSON"
 import styles from './astViewer.module.css'
 
 export const AstViewer = () => {
@@ -14,7 +13,7 @@ export const AstViewer = () => {
         console.log(event.target.value)
     }
        
-    const reactElements = ParseStringtoNode(text.text);
+    // const reactElements = ParseStringtoNode(text.text);
     
     return(
         <div className={styles.container}>
@@ -29,7 +28,8 @@ export const AstViewer = () => {
             </div>
             <div className={styles.result}>
                 test
-                <pre>{JSON.stringify(convertNodeToJSON(ParseStringtoNode(text.text)), null , 2)}</pre>
+                {/* //to do create json from string instead for better workflow
+                <pre>{JSON.stringify(convertNodeToJSON(ParseStringtoNode(text.text)), null , 2)}</pre> */}
             </div>
         </div>
     )

@@ -2,7 +2,7 @@ import React, {useRef } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 // import { CreateJsx, CreateJSON } from 'jsx-transform-json';
-import { convertNodeToJSON } from './parser/convertNodeToJSON';
+import { convertNodeToJSON } from './parser/createJSON';
 import {createReactElement} from './parser/createJSX';
 import { Editor } from './modules/editor/editor';
 import { Extract } from './parser/RestructureJSXtoJSON';
@@ -87,19 +87,14 @@ console.log(parseToUmg(structure))
 
 const App = () => {
 
-  // console.log(convertNodeToJSON(BasicText()))
-  // console.log(createReactElement(convertNodeToJSON(BasicText())))
-  // console.log(JSON.stringify(Extract(BasicText())))
-  console.log(<TextBlock>asds</TextBlock>)
+  console.log(convertNodeToJSON( <TextBlock>asds</TextBlock> ))
+  console.log(createReactElement(convertNodeToJSON( <TextBlock>asds</TextBlock> )))
+  console.log(Extract( <TextBlock>asds</TextBlock> ))
+  console.log( <TextBlock>asds</TextBlock> )
   return(
     <div className='main'>
       {/* <Editor/> */}
       {/* result is in console log */}
-      <SizeBox>
-        <TextBlock>
-          asd
-        </TextBlock>
-      </SizeBox>
       <pre>
         {JSON.stringify(
           convertNodeToJSON(
